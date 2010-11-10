@@ -1307,7 +1307,7 @@
 													<key>CHILDREN</key>
 													<array/>
 													<key>GID</key>
-													<integer>20</integer>
+													<integer>80</integer>
 													<key>PATH</key>
 													<string>payload/gpgmail/GPGMail.mailbundle</string>
 													<key>PATH_TYPE</key>
@@ -1485,7 +1485,7 @@
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
 				<key>AUTHENTICATION</key>
-				<false/>
+				<true/>
 				<key>CONCLUSION_ACTION</key>
 				<integer>0</integer>
 				<key>IDENTIFIER</key>
