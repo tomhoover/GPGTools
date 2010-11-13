@@ -54,18 +54,24 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1.4a</string>
+	<string>0.2.2b</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>????</string>
+	<string>0.2.2b</string>
 	<key>LSMinimumSystemVersion</key>
-	<string></string>
+	<string>10.5</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © Roman Zechmeister, 2010 (GPL version 3 or later)</string>
+	<string>Copyright © Roman Zechmeister, 2010 (GPL v3)</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUEnableAutomaticChecks</key>
+	<string>YES</string>
+	<key>SUFeedURL</key>
+	<string>http://gpgtools.github.com/GPGKeychainAccess/appcast.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>
