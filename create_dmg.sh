@@ -5,6 +5,10 @@
 # (c) by Felix Co
 #
 
+# remove files from earlier execution
+rm build/GPGTools-$(date "+%Y%m%d").dmg
+rm build/GPGTools-$(date "+%Y%m%d").dmg.zip
+
 tar xfvj template.dmg.tar.bz2
 
 hdiutil attach "template.dmg" -noautoopen -quiet -mountpoint "gpgtools_diskimage"
