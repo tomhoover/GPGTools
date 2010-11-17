@@ -4,28 +4,40 @@
 #
 # (c) by Felix Co
 #
+# edited by Roman Zechmeister
+#
+
+dmgPath=build/GPGTools-$(date "+%Y%m%d").dmg
+
 
 # remove files from earlier execution
-rm build/GPGTools-$(date "+%Y%m%d").dmg
-rm build/GPGTools-$(date "+%Y%m%d").dmg.zip
+rm -f $dmgPath
+rm -f ${dmgPath}.zip
+rm -rf build/dmgTemp
 
-tar xfvj template.dmg.tar.bz2
 
-hdiutil attach "template.dmg" -noautoopen -quiet -mountpoint "gpgtools_diskimage"
+# Create temp folder
+mkdir build/dmgTemp
+
+
+# Copy dmg resources
+cp dmgResources/DS_Store build/dmgTemp/.DS_Store
+mkdir build/dmgTemp/.background
+cp dmgResources/Background.png build/dmgTemp/.background/Background.png
 
 
 # Copy the relevant files
-ditto --rsrc build/GPGTools.mpkg gpgtools_diskimage/GPGTools.mpkg
-ditto --rsrc Uninstall_GPGTools.app gpgtools_diskimage/Uninstall_GPGTools.app
+ditto build/GPGTools.mpkg build/dmgTemp/GPGTools.mpkg
+ditto Uninstall_GPGTools.app build/dmgTemp/Uninstall_GPGTools.app
 
-# get the name of the dvice to detatch it
-dmg_device=` hdiutil info | grep "gpgtools_diskimage" | awk '{print $1}' `
 
-hdiutil detach $dmg_device -quiet -force
+# Create DMG
+hdiutil create -srcfolder build/dmgTemp -quiet -volname GPGTools $dmgPath 
 
-hdiutil convert "template.dmg" -quiet -format UDZO -imagekey zlib-level=9 -o "build/GPGTools-$(date "+%Y%m%d").dmg"
+# Create ZIP
+zip -j ${dmgPath}.zip $dmgPath
 
-zip -j build/GPGTools-$(date "+%Y%m%d").dmg.zip build/GPGTools-$(date "+%Y%m%d").dmg
 
-# remove the extracted template
-rm template.dmg
+# Remove temp
+rm -rf build/dmgTemp
+
