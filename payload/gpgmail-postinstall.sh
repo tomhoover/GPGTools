@@ -1,11 +1,16 @@
 #!/bin/sh
 tempdir=/private/tmp/GPGMail_Installation
 
-mkdir -p "$HOME/Library/Mail/Bundles"
-# The installer has to make sure, that the "GPGMail.mailbundle" is installed in $tempdir
-mv "$tempdir/GPGMail.mailbundle" "$HOME/Library/Mail/Bundles/"
-# change the user and group to avoid problems when updating (so this skript needs to be run as root!)
-chown -R $USER:Staff "$HOME/Library/Mail/Bundles/GPGMail.mailbundle"
+# determine where to install the bundle to
+if ( test -e "/Library/Mail/Bundles/GPGMail.mailbundle" ) then
+	mv "$tempdir/GPGMail.mailbundle" "/Library/Mail/Bundles/"
+else
+	mkdir -p "$HOME/Library/Mail/Bundles"
+	# The installer has to make sure, that the "GPGMail.mailbundle" is installed in $tempdir
+	mv "$tempdir/GPGMail.mailbundle" "$HOME/Library/Mail/Bundles/"
+	# change the user and group to avoid problems when updating (so this skript needs to be run as root!)
+	chown -R $USER:Staff "$HOME/Library/Mail/Bundles/GPGMail.mailbundle"
+fi
 
 # cleanup tempdir "rm -d" deletes the temporary installation dir only if empty.
 # that is correct because if eg. /tmp is you install dir, there can be other stuff
