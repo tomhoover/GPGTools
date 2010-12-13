@@ -1,1 +1,3 @@
 Installer for a complete GPG Suite for sending mail.
+
+WARNING: Please close Apple Mail before continuing!

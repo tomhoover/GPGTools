@@ -18,5 +18,18 @@ fi
 rm -d "$tempdir"
 
 # enable bundles in Mail
-defaults write com.apple.mail EnableBundles -bool YES 
-defaults write com.apple.mail BundleCompatibilityVersion -int 3 
+######
+# Note that we are running sudo'd, so these defaults will be written to
+# /Library/Preferences/com.apple.mail.plist
+#
+# Mail must NOT be running by the time this script executes
+######
+if [ `whoami` == root ] ; then
+    #defaults acts funky when asked to write to the root domain but seems to work with a full path
+	domain=/Library/Preferences/com.apple.mail
+else
+    domain=com.apple.mail
+fi
+
+defaults write "$domain" EnableBundles -bool YES 
+defaults write "$domain" BundleCompatibilityVersion -int 3 
