@@ -25,8 +25,8 @@ hdiutil attach "template.dmg" -noautoopen -quiet -mountpoint "gpgtools_diskimage
 
 
 # Copy the relevant files
-ditto --rsrc build/GPGTools.mpkg gpgtools_diskimage/GPGTools.mpkg
-ditto --rsrc Uninstall_GPGTools.app gpgtools_diskimage/Uninstall_GPGTools.app
+ditto --rsrc build/GPGTools.mpkg gpgtools_diskimage/Install\ GPGTools.mpkg
+ditto --rsrc Uninstall_GPGTools.app gpgtools_diskimage/Uninstall\ GPGTools.app
 cp gpgtoolsdmg.icns gpgtools_diskimage/.VolumeIcon.icns
 cp dmg_background.png gpgtools_diskimage/.background/dmg_background.png
 
