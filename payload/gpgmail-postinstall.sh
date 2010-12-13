@@ -5,7 +5,7 @@ tempdir=/private/tmp/GPGMail_Installation
 if ( test -e "/Library/Mail/Bundles/GPGMail.mailbundle" ) then
 	mv "$tempdir/GPGMail.mailbundle" "/Library/Mail/Bundles/"
 else
-	mkdir -p "$HOME/Library/Mail/Bundles"
+	sudo -u $USER mkdir -p "$HOME/Library/Mail/Bundles"
 	# The installer has to make sure, that the "GPGMail.mailbundle" is installed in $tempdir
 	mv "$tempdir/GPGMail.mailbundle" "$HOME/Library/Mail/Bundles/"
 	# change the user and group to avoid problems when updating (so this skript needs to be run as root!)
