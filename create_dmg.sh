@@ -5,6 +5,16 @@
 # (c) by Felix Co
 #
 
+# Build the installer
+if ( test -e /usr/local/bin/packagesbuild ) then
+	echo "Building the installer..."
+	/usr/local/bin/packagesbuild GPGTools.pkgproj
+else
+	echo "ERROR: You need the Application \"Packages\"!"
+	echo "get it at http://s.sudre.free.fr/Software/Packages.html"
+	exit 1
+fi
+
 # remove files from earlier execution
 rm build/GPGTools-$(date "+%Y%m%d").dmg
 rm build/GPGTools-$(date "+%Y%m%d").dmg.zip
