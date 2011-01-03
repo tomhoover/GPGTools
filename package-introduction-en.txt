@@ -1,3 +1,7 @@
-Installer for a complete GPG Suite for sending mail.
+GPGTools Installer
+
+An installer for a complete suite for sending GPG encrypted mails and managing GPG keys using OS X.
 
 WARNING: Please close Apple Mail before continuing!
+
+For further details have a look at http://gpgtools.org.
