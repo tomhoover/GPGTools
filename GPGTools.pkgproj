@@ -4836,7 +4836,16 @@ $HOME/Library/Mail/Bundles/</string>
 					<key>IDENTIFIER</key>
 					<string>fr.whitebox.Packages.requirement.cpu</string>
 					<key>MESSAGE</key>
-					<array/>
+					<array>
+						<dict>
+							<key>LANGUAGE</key>
+							<string>English</string>
+							<key>SECONDARY_VALUE</key>
+							<string></string>
+							<key>VALUE</key>
+							<string>Only Intel is supported.</string>
+						</dict>
+					</array>
 					<key>NAME</key>
 					<string>Processor</string>
 					<key>STATE</key>
@@ -4848,18 +4857,27 @@ $HOME/Library/Mail/Bundles/</string>
 					<key>DICTIONARY</key>
 					<dict>
 						<key>IC_REQUIREMENT_OS_DISK_TYPE</key>
-						<integer>0</integer>
+						<integer>1</integer>
 						<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
 						<integer>0</integer>
 						<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
 						<integer>100600</integer>
 					</dict>
 					<key>IC_REQUIREMENT_CHECK_TYPE</key>
-					<integer>1</integer>
+					<integer>0</integer>
 					<key>IDENTIFIER</key>
 					<string>fr.whitebox.Packages.requirement.os</string>
 					<key>MESSAGE</key>
-					<array/>
+					<array>
+						<dict>
+							<key>LANGUAGE</key>
+							<string>English</string>
+							<key>SECONDARY_VALUE</key>
+							<string></string>
+							<key>VALUE</key>
+							<string>OS X &lt; 10.6 is not supported.</string>
+						</dict>
+					</array>
 					<key>NAME</key>
 					<string>Operating System</string>
 					<key>STATE</key>
