@@ -17,7 +17,7 @@ fi
 
 # remove files from earlier execution
 rm build/GPGTools-$(date "+%Y%m%d").dmg
-rm build/GPGTools-$(date "+%Y%m%d").dmg.zip
+#rm build/GPGTools-$(date "+%Y%m%d").dmg.zip
 
 tar xfvj template.dmg.tar.bz2
 
@@ -37,7 +37,7 @@ hdiutil detach $dmg_device -quiet -force
 
 hdiutil convert "template.dmg" -quiet -format UDZO -imagekey zlib-level=9 -o "build/GPGTools-$(date "+%Y%m%d").dmg"
 
-zip -j build/GPGTools-$(date "+%Y%m%d").dmg.zip build/GPGTools-$(date "+%Y%m%d").dmg
+#zip -j build/GPGTools-$(date "+%Y%m%d").dmg.zip build/GPGTools-$(date "+%Y%m%d").dmg
 
 # remove the extracted template
 rm template.dmg
