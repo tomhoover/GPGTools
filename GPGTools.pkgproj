@@ -4883,6 +4883,45 @@ $HOME/Library/Mail/Bundles/</string>
 					<key>STATE</key>
 					<true/>
 				</dict>
+				<dict>
+					<key>BEHAVIOR</key>
+					<integer>2</integer>
+					<key>DICTIONARY</key>
+					<dict>
+						<key>IC_REQUIREMENT_FILES_CONDITION</key>
+						<integer>1</integer>
+						<key>IC_REQUIREMENT_FILES_DISK_TYPE</key>
+						<integer>1</integer>
+						<key>IC_REQUIREMENT_FILES_LIST</key>
+						<array>
+							<string>/bin/gpg2</string>
+							<string>/opt/local/bin/gpg2</string>
+							<string>/usr/bin/gpg2</string>
+							<string>/usr/local/bin/gpg2</string>
+						</array>
+						<key>IC_REQUIREMENT_FILES_SELECTOR</key>
+						<integer>0</integer>
+					</dict>
+					<key>IC_REQUIREMENT_CHECK_TYPE</key>
+					<integer>0</integer>
+					<key>IDENTIFIER</key>
+					<string>fr.whitebox.Packages.requirement.files</string>
+					<key>MESSAGE</key>
+					<array>
+						<dict>
+							<key>LANGUAGE</key>
+							<string>English</string>
+							<key>SECONDARY_VALUE</key>
+							<string></string>
+							<key>VALUE</key>
+							<string>Warning: GPGTools can break GnuPG2 installation. You might want to remove GPG version 2 before installing this package.</string>
+						</dict>
+					</array>
+					<key>NAME</key>
+					<string>GPG2</string>
+					<key>STATE</key>
+					<true/>
+				</dict>
 			</array>
 			<key>POSTINSTALL_PATH</key>
 			<dict/>
