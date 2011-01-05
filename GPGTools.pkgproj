@@ -4820,34 +4820,34 @@ $HOME/Library/Mail/Bundles/</string>
 					<integer>3</integer>
 					<key>DICTIONARY</key>
 					<dict>
-						<key>IC_REQUIREMENT_CPU_ARCHITECTURE_FAMILY</key>
-						<integer>2</integer>
-						<key>IC_REQUIREMENT_CPU_INTEL_ARCHITECTURE_TYPE</key>
-						<integer>0</integer>
-						<key>IC_REQUIREMENT_CPU_MINIMUM_CPU_CORES_COUNT</key>
+						<key>IC_REQUIREMENT_FILES_CONDITION</key>
 						<integer>1</integer>
-						<key>IC_REQUIREMENT_CPU_MINIMUM_FREQUENCY</key>
-						<integer>866666</integer>
-						<key>IC_REQUIREMENT_CPU_POWERPC_ARCHITECTURE_TYPE</key>
+						<key>IC_REQUIREMENT_FILES_DISK_TYPE</key>
 						<integer>0</integer>
+						<key>IC_REQUIREMENT_FILES_LIST</key>
+						<array>
+							<string>/opt/local/bin/gpg2</string>
+							<string>/usr/bin/gpg2</string>
+							<string>/usr/local/bin/gpg2</string>
+						</array>
+						<key>IC_REQUIREMENT_FILES_SELECTOR</key>
+						<integer>1</integer>
 					</dict>
 					<key>IC_REQUIREMENT_CHECK_TYPE</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>IDENTIFIER</key>
-					<string>fr.whitebox.Packages.requirement.cpu</string>
+					<string>fr.whitebox.Packages.requirement.files</string>
 					<key>MESSAGE</key>
 					<array>
 						<dict>
 							<key>LANGUAGE</key>
 							<string>English</string>
-							<key>SECONDARY_VALUE</key>
-							<string></string>
 							<key>VALUE</key>
-							<string>Only Intel is supported.</string>
+							<string>GPGTools currently breaks GnuPG2 installation. Please remove GPG2 first.</string>
 						</dict>
 					</array>
 					<key>NAME</key>
-					<string>Processor</string>
+					<string>GPG2</string>
 					<key>STATE</key>
 					<true/>
 				</dict>
@@ -4857,14 +4857,14 @@ $HOME/Library/Mail/Bundles/</string>
 					<key>DICTIONARY</key>
 					<dict>
 						<key>IC_REQUIREMENT_OS_DISK_TYPE</key>
-						<integer>1</integer>
+						<integer>0</integer>
 						<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
 						<integer>0</integer>
 						<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
 						<integer>100600</integer>
 					</dict>
 					<key>IC_REQUIREMENT_CHECK_TYPE</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>IDENTIFIER</key>
 					<string>fr.whitebox.Packages.requirement.os</string>
 					<key>MESSAGE</key>
@@ -4872,53 +4872,12 @@ $HOME/Library/Mail/Bundles/</string>
 						<dict>
 							<key>LANGUAGE</key>
 							<string>English</string>
-							<key>SECONDARY_VALUE</key>
-							<string></string>
 							<key>VALUE</key>
-							<string>OS X &lt; 10.6 is not supported.</string>
+							<string>GPGTools requires Snow Leopard or later.</string>
 						</dict>
 					</array>
 					<key>NAME</key>
-					<string>Operating System</string>
-					<key>STATE</key>
-					<true/>
-				</dict>
-				<dict>
-					<key>BEHAVIOR</key>
-					<integer>2</integer>
-					<key>DICTIONARY</key>
-					<dict>
-						<key>IC_REQUIREMENT_FILES_CONDITION</key>
-						<integer>1</integer>
-						<key>IC_REQUIREMENT_FILES_DISK_TYPE</key>
-						<integer>1</integer>
-						<key>IC_REQUIREMENT_FILES_LIST</key>
-						<array>
-							<string>/bin/gpg2</string>
-							<string>/opt/local/bin/gpg2</string>
-							<string>/usr/bin/gpg2</string>
-							<string>/usr/local/bin/gpg2</string>
-						</array>
-						<key>IC_REQUIREMENT_FILES_SELECTOR</key>
-						<integer>0</integer>
-					</dict>
-					<key>IC_REQUIREMENT_CHECK_TYPE</key>
-					<integer>0</integer>
-					<key>IDENTIFIER</key>
-					<string>fr.whitebox.Packages.requirement.files</string>
-					<key>MESSAGE</key>
-					<array>
-						<dict>
-							<key>LANGUAGE</key>
-							<string>English</string>
-							<key>SECONDARY_VALUE</key>
-							<string></string>
-							<key>VALUE</key>
-							<string>Warning: GPGTools can break GnuPG2 installation. You might want to remove GPG version 2 before installing this package.</string>
-						</dict>
-					</array>
-					<key>NAME</key>
-					<string>GPG2</string>
+					<string>Snow Leopard</string>
 					<key>STATE</key>
 					<true/>
 				</dict>
