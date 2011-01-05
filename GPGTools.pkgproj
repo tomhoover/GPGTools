@@ -4843,7 +4843,7 @@ $HOME/Library/Mail/Bundles/</string>
 							<key>LANGUAGE</key>
 							<string>English</string>
 							<key>VALUE</key>
-							<string>GPGTools currently breaks GnuPG2 installation. Please remove GPG2 first.</string>
+							<string>GPGTools currently breaks GnuPG2 installations. Please remove GPG2 first.</string>
 						</dict>
 					</array>
 					<key>NAME</key>
