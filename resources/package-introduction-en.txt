@@ -1,0 +1,10 @@
+An installer for a complete suite for sending GPG encrypted mails and managing GPG keys using OS X. Including:
+
+* MacGPG2 (incl. gpg-pinentry and gpg-agent)
+* GPGMail.bundle (for OS X Mail.app)
+* GPG Keychain Access.app (managing GPG keys)
+* Enigmail.xpi (for Mozilla Thunderbird)
+
+WARNING: Please close Apple Mail before continuing!
+
+For further details have a look at http://gpgtools.org.
