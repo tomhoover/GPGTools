@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # This script creates a DMG  for GPGTools
 #
 # (c) by Felix Co
@@ -29,6 +29,8 @@ ditto --rsrc build/GPGTools.mpkg gpgtools_diskimage/Install\ GPGTools.mpkg
 ditto --rsrc Uninstall_GPGTools.app gpgtools_diskimage/Uninstall\ GPGTools.app
 cp gpgtoolsdmg.icns gpgtools_diskimage/.VolumeIcon.icns
 cp dmg_background.png gpgtools_diskimage/.background/dmg_background.png
+./setfileicon trash.icns gpgtools_diskimage/Uninstall\ GPGTools.app
+./setfileicon installer.icns gpgtools_diskimage/Install\ GPGTools.mpkg
 
 # get the name of the dvice to detatch it
 dmg_device=` hdiutil info | grep "gpgtools_diskimage" | awk '{print $1}' `
