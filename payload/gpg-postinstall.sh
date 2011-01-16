@@ -14,3 +14,5 @@ if ( ! test -e $HOME/.gnupg/gpg.conf ) then
 	chown -R $USER:Staff $HOME/.gnupg
 	cp /usr/local/share/gnupg/options.skel $HOME/.gnupg/gpg.conf
 fi
+killall gpg-agent
+
