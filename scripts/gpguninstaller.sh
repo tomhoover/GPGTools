@@ -10,9 +10,11 @@ if [ ! "$UID" == "0" ]; then
 fi
 
 echo "Removing MacGPG2 >= 2.0.17...";
-echo "rm -fr /usr/local/MacGPG2";
-echo "rm -fr /Applications/start-gpg-agent.app";
-echo "rm /Library/LaunchAgents/com.sourceforge.macgpg2.gpg-agent.plist";
+rm -fr /usr/local/MacGPG2
+rm -fr /Applications/start-gpg-agent.app
+rm /Library/LaunchAgents/com.sourceforge.macgpg2.gpg-agent.plist
+rm -f /private/etc/paths.d/MacGPG2
+rm -f /private/etc/man.d/MacGPG2
 
 echo "Removing MacGPG2 <= 2.0.16...";
 rm -f /usr/local/lib/charset.alias
