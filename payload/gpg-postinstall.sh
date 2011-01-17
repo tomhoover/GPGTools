@@ -3,6 +3,10 @@
 # Fix a bug with an old GPGTools installation
 	chown -R $USER:Staff $HOME/.gnupg
 
+# Clean up
+  osascript scripts/remove-gpg-agent-login-item.scpt
+  rm -rf /Applications/start-gpg-agent.app
+
 # Also clean up bad GPGTools behaviour:
   [ -h "$HOME/.gnupg/S.gpg-agent" ] && rm -f "$HOME/.gnupg/S.gpg-agent"
   [ -h "$HOME/.gnupg/S.gpg-agent.ssh" ] && rm -f "$HOME/.gnupg/S.gpg-agent.ssh"
