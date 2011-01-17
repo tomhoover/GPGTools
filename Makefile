@@ -9,7 +9,7 @@ clean:
 test:
 	@echo " * Uninstalling gpg2...";
 	@sudo osascript Uninstall_GPGTools.app/Contents/Resources/Scripts/remover.scpt > make.log 2>&1
-	@gpg2 --version 2>/dev/null; if [ "$?" == "0" ]; then echo "FAIL"; exit 1; else echo "PASS"; fi
+	@gpg2 --version 2>/dev/null; if [ "$?" == "0" ] || [ ! "`which gpg2`" == "" ]; then echo "FAIL"; exit 1; else echo "PASS"; fi
 	@echo " * Installing gpg2...";
 	@sudo installer -verboseR -pkg build/GPGTools.mpkg -target /  > make.log 2>&1
 	@sudo chown -R $$USER ~/.gnupg
