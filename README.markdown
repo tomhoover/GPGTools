@@ -7,4 +7,5 @@ It contains the following Applications (have a look at VERSIONS.txt to see which
 * MacGnuPG 2 - The basic GnuPG application including gpg-agent and gpg-pinentry
 * GPGKeychainAccess - Application to easily manage and create you GPG keys
 * GPGMail - Plugin for Apple Mail to sign/encrypt/verify/decrypt emails
+* GPGServices - OS X text services menu for GPG
 * Enigmail - Plugin for Mozilla Thunderbird to sign/encrypt/verify/decrypt emails
