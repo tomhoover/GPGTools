@@ -1,15 +1,17 @@
-all: build
+all: create
 
-build:
+create:
 	@./scripts/create_dmg.sh
 
 clean:
 	rm -rf build
 
 test:
-	#sudo rm -f `which gpg2`
-	#gpg2 --version 2>/dev/null; if [ "$?" == "0" ]; then echo "FAIL"; exit 1; fi
-	sudo installer -verboseR -pkg build/GPGTools.mpkg -target /
-	sudo chown -R $$USER ~/.gnupg
-	#gpg2 --version; if [ "$?" != "0" ]; then echo "FAIL"; exit 1; fi
-
+	@echo " * Uninstalling gpg2...";
+	@sudo osascript Uninstall_GPGTools.app/Contents/Resources/Scripts/remover.scpt > make.log 2>&1
+	@gpg2 --version 2>/dev/null; if [ "$?" == "0" ]; then echo "FAIL"; exit 1; else echo "PASS"; fi
+	@echo " * Installing gpg2...";
+	@sudo installer -verboseR -pkg build/GPGTools.mpkg -target /  > make.log 2>&1
+	@sudo chown -R $$USER ~/.gnupg
+	@if [ "`gpg2 --version|grep 2.0.17`" == "" ]; then echo "FAIL"; exit 1; else echo "PASS"; fi
+	@echo "Done.";
