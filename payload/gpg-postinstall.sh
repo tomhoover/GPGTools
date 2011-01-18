@@ -11,6 +11,10 @@
   [ -h "$HOME/.gnupg/S.gpg-agent" ] && rm -f "$HOME/.gnupg/S.gpg-agent"
   [ -h "$HOME/.gnupg/S.gpg-agent.ssh" ] && rm -f "$HOME/.gnupg/S.gpg-agent.ssh"
 
+# Add some links
+  rm -f /usr/local/bin/gpg2; ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg2
+  [ ! -e /usr/local/bin/gpg ] && ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg
+
 # Create a new gpg.conf if none is existing from the skeleton file
 if ( ! test -e $HOME/.gnupg/gpg.conf ) then
 	echo "Create!"
