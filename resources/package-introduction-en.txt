@@ -1,4 +1,4 @@
-Version 2011.01.17
+Version 2011.01.21
 
 An installer for a complete suite for sending GPG encrypted mails and managing GPG keys using OS X. Including:
 
