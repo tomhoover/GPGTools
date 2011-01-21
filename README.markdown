@@ -1,11 +1,11 @@
 # GPGTools Installer
 
-The source code of an installer for Mac OSX that contains everything for mailing with GnuPG (see [http://gnupg.org](http://gnupg.org)).
+The source code of the GPGTools Installer. That is an open source installer for Apple OS X. It installs all related OpenPGP applications, plugins and dependencies.
 
 It contains the following Applications (have a look at VERSIONS.txt to see which versions are used):
 
-* MacGnuPG 2 - The basic GnuPG application including gpg-agent and gpg-pinentry
-* GPGKeychainAccess - Application to easily manage and create you GPG keys
+* MacGPG 2 - GnuPG application including gpg-agent and gpg-pinentry
+* GPG Keychain Access - manage and create GPG keys
 * GPGMail - Plugin for Apple Mail to sign/encrypt/verify/decrypt emails
 * GPGServices - OS X text services menu for GPG
 * Enigmail - Plugin for Mozilla Thunderbird to sign/encrypt/verify/decrypt emails
