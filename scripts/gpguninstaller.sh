@@ -13,6 +13,7 @@ echo "Removing MacGPG2 >= 2.0.17...";
 rm -f /usr/local/bin/gpg2
 rm -fr /usr/local/MacGPG2
 rm -f /Library/LaunchAgents/com.sourceforge.macgpg2.gpg-agent.plist
+rm -f /Library/LaunchAgents/org.gpgtools.macgpg2.gpg-agent.plist
 rm -f /private/etc/paths.d/MacGPG2
 rm -f /private/etc/man.d/MacGPG2
 
