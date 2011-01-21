@@ -20,7 +20,7 @@ if ( ! test -e $HOME/.gnupg/gpg.conf ) then
 	echo "Create!"
 	mkdir -p $HOME/.gnupg
 	chown -R $USER:Staff $HOME/.gnupg
-	cp /usr/local/MacGPG2/share/gnupg/options.skel $HOME/.gnupg/gpg.conf
+	cp /usr/local/MacGPG2/share/gnupg/gpg-conf.skel $HOME/.gnupg/gpg.conf
 fi
 
 killall gpg-agent
