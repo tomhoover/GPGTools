@@ -47,4 +47,7 @@ hdiutil convert "template.dmg" -quiet -format UDZO -imagekey zlib-level=9 -o "bu
 # remove the extracted template
 rm template.dmg
 
+gpg2 --detach-sign -u 76D78F0500D026C4 build/GPGTools-$(date "+%Y%m%d").dmg
 open build/GPGTools-$(date "+%Y%m%d").dmg
+
+
