@@ -5,6 +5,9 @@ create:
 
 clean:
 	rm -rf build
+	rm -rf payload/keychain_access/Applications/*
+	rm -rf payload/gpgservices/*
+	rm -rf payload/gpgmail/*
 
 test:
 	@echo " * Uninstalling gpg2...";

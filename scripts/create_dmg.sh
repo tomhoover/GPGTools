@@ -10,6 +10,17 @@ if ( ! test -e Makefile ) then
 	exit 1
 fi
 
+echo "Compiling GPGServices...";
+(cd ../GPGServices && git pull && make && cd - && rm -rf payload/gpgservices/GPGServices.service && cp -r ../GPGServices/build/Release/GPGServices.service payload/gpgservices/) > build.log 2>&1
+if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
+echo "Compiling GPGKeychainAccess..."
+(cd ../GPGKeychainAccess && git pull && make && cd - && rm -rf payload/keychain_access/Applications/GPG\ Keychain\ Access.app && cp -r ../GPGKeychainAccess/build/Release/GPG\ Keychain\ Access.app payload/keychain_access/Applications/)  > build.log 2>&1
+if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
+echo "Compiling GPGMail...";
+(cd ../GPGMail/GPGMail && git pull && make && cd - && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
+if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
+
+
 # Build the installer
 if ( test -e /usr/local/bin/packagesbuild ) then
 	echo "Building the installer..."
@@ -22,7 +33,6 @@ fi
 
 # remove files from earlier execution
 rm build/GPGTools-$(date "+%Y%m%d").dmg
-#rm build/GPGTools-$(date "+%Y%m%d").dmg.zip
 
 tar xfvj resources/template.dmg.tar.bz2
 
@@ -49,5 +59,3 @@ rm template.dmg
 
 gpg2 --detach-sign -u 76D78F0500D026C4 build/GPGTools-$(date "+%Y%m%d").dmg
 open build/GPGTools-$(date "+%Y%m%d").dmg
-
-
