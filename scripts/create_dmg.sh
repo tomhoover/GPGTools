@@ -10,13 +10,17 @@ if ( ! test -e Makefile ) then
 	exit 1
 fi
 
+
 echo "Compiling GPGServices...";
+mkdir -p payload/gpgservices
 (cd ../GPGServices && git pull && make && cd - && rm -rf payload/gpgservices/GPGServices.service && cp -r ../GPGServices/build/Release/GPGServices.service payload/gpgservices/) > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 echo "Compiling GPGKeychainAccess..."
+mkdir -p payload/keychain_access
 (cd ../GPGKeychainAccess && git pull && make && cd - && rm -rf payload/keychain_access/Applications/GPG\ Keychain\ Access.app && cp -r ../GPGKeychainAccess/build/Release/GPG\ Keychain\ Access.app payload/keychain_access/Applications/)  > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 echo "Compiling GPGMail...";
+mkdir -p payload/gpgmail
 (cd ../GPGMail/GPGMail && git pull && make && cd - && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 
