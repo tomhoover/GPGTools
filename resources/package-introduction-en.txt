@@ -6,6 +6,7 @@ An installer for a complete suite for sending GPG encrypted mails and managing G
 * GPGMail.bundle (for OS X Mail.app)
 * GPG Keychain Access.app (managing GPG keys)
 * GPG Services (OS X text service menu for GPG)
+* GPG Preferences (GPGTools preferences, early release)
 * Enigmail.xpi (for Mozilla Thunderbird)
 
 WARNING: Please close Apple Mail before continuing!

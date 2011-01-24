@@ -29,29 +29,33 @@ fi
 
 
 #-------------------------------------------------------------------------
+echo "Compiling GPGTools_Preferences...";
+mkdir -p payload/gpgtoolspreferences
+(cd ../GPGMail_Preferences && git pull && make && cd - && rm -rf payload/gpgtoolspreferences/GPGTools.prefPane && cp -r ../GPGMail_Preferences/build/Release/GPGTools.prefPane payload/gpgtoolspreferences/) > build.log 2>&1
+if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 echo "Compiling GPGServices...";
 mkdir -p payload/gpgservices
-#(cd ../GPGServices && git pull && make && cd - && rm -rf payload/gpgservices/GPGServices.service && cp -r ../GPGServices/build/Release/GPGServices.service payload/gpgservices/) > build.log 2>&1
+(cd ../GPGServices && git pull && make && cd - && rm -rf payload/gpgservices/GPGServices.service && cp -r ../GPGServices/build/Release/GPGServices.service payload/gpgservices/) > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 echo "Compiling GPGKeychainAccess..."
 mkdir -p payload/keychain_access
-#(cd ../GPGKeychainAccess && git pull && make && cd - && rm -rf payload/keychain_access/Applications/GPG\ Keychain\ Access.app && cp -r ../GPGKeychainAccess/build/Release/GPG\ Keychain\ Access.app payload/keychain_access/Applications/)  > build.log 2>&1
+(cd ../GPGKeychainAccess && git pull && make && cd - && rm -rf payload/keychain_access/Applications/GPG\ Keychain\ Access.app && cp -r ../GPGKeychainAccess/build/Release/GPG\ Keychain\ Access.app payload/keychain_access/Applications/)  > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 echo "Compiling GPGMail...";
 mkdir -p payload/gpgmail
-#(cd ../GPGMail/GPGMail && git pull && make && cd - && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
+(cd ../GPGMail/GPGMail && git pull && make && cd - && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 #-------------------------------------------------------------------------
 
 
 #-------------------------------------------------------------------------
 if ( test -e /usr/local/bin/packagesbuild ) then
-	echo "Building the installer..."
-#	/usr/local/bin/packagesbuild GPGTools.pkgproj
+    echo "Building the installer..."
+    /usr/local/bin/packagesbuild GPGTools.pkgproj
 else
-	echo "ERROR: You need the Application \"Packages\"!"
-	echo "get it at http://s.sudre.free.fr/Software/Packages.html"
-	exit 1
+    echo "ERROR: You need the Application \"Packages\"!"
+    echo "get it at http://s.sudre.free.fr/Software/Packages.html"
+    exit 1
 fi
 #-------------------------------------------------------------------------
 
@@ -60,6 +64,7 @@ fi
 echo "Removing old files..."
 rm -f "$dmgTempPath"
 rm -f "$dmgPath"
+rm -f "$dmgPath.asc"
 rm -rf "build/dmgTemp"
 
 echo "Creating temp folder..."
