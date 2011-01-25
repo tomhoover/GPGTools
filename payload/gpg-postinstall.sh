@@ -1,29 +1,29 @@
 #!/bin/sh
 
-# Fix a bug with an old GPGTools installation
-	chown -R $USER:Staff $HOME/.gnupg
+killall gpg-agent
 
-# Clean up
+# Clean up (also clean up bad GPGTools behaviour)
   osascript scripts/remove-gpg-agent-login-item.scpt
   rm -rf /Applications/start-gpg-agent.app
-
-# Also clean up bad GPGTools behaviour:
   [ -h "$HOME/.gnupg/S.gpg-agent" ] && rm -f "$HOME/.gnupg/S.gpg-agent"
   [ -h "$HOME/.gnupg/S.gpg-agent.ssh" ] && rm -f "$HOME/.gnupg/S.gpg-agent.ssh"
 
-# Add some links
+# Add some links (force the symlink to be sure)
   rm -f /usr/local/bin/gpg2; ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg2
   [ ! -e /usr/local/bin/gpg ] && ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg
 
 # Create a new gpg.conf if none is existing from the skeleton file
-if ( ! test -e $HOME/.gnupg/gpg.conf ) then
-	echo "Create!"
-	mkdir -p $HOME/.gnupg
-	chown -R $USER:Staff $HOME/.gnupg
-	cp /usr/local/MacGPG2/share/gnupg/gpg-conf.skel $HOME/.gnupg/gpg.conf
-fi
+    if ( ! test -e $HOME/.gnupg/gpg.conf ) then
+    	echo "Create!"
+    	mkdir -p $HOME/.gnupg
+    	cp /usr/local/MacGPG2/share/gnupg/gpg-conf.skel $HOME/.gnupg/gpg.conf
+    fi
 
-killall gpg-agent
+# Fix permissions (just to be sure)
+  chown -R $USER:staff $HOME/.gnupg
+  chown -R $USER:staff $HOME/Library/GPGServices.service
+  chown -R $USER:staff $HOME/PreferencePanes/GPGTools.prefPane
+  sudo chown root:wheel /Library/LaunchAgents/org.gpgtools.macgpg2.gpg-agent.plist
 
 ###############################################################
 # copied from the MacGPG2 installer. This should be avoided:
