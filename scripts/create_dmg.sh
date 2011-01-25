@@ -29,6 +29,8 @@ fi
 
 
 #-------------------------------------------------------------------------
+echo "Starting (takes at least 1 minute)...";
+echo "";
 echo "Compiling GPGTools_Preferences...";
 mkdir -p payload/gpgtoolspreferences
 (cd ../GPGMail_Preferences && git pull && make && cd - && rm -rf payload/gpgtoolspreferences/GPGTools.prefPane && cp -r ../GPGMail_Preferences/build/Release/GPGTools.prefPane payload/gpgtoolspreferences/) > build.log 2>&1
@@ -64,6 +66,7 @@ fi
 echo "Removing old files..."
 rm -f "$dmgTempPath"
 rm -f "$dmgPath"
+rm -f "$dmgPath.sig"
 rm -f "$dmgPath.asc"
 rm -rf "build/dmgTemp"
 
@@ -121,7 +124,7 @@ rm -rf build/dmgTemp
 rm -f "$dmgTempPath"
 
 echo "Signing..."
-gpg2 -bau 76D78F0500D026C4 "$dmgPath"
+gpg2 -bu 76D78F0500D026C4 "$dmgPath"
 
 echo -e "DMG created\n\n"
 
