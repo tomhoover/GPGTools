@@ -19,7 +19,7 @@ killall gpg-agent
     	cp /usr/local/MacGPG2/share/gnupg/gpg-conf.skel $HOME/.gnupg/gpg.conf
     fi
 # Create a new gpg.conf if the existing is corrupt
-    if ( ! gpg2 --gpgconf-test ) then
+    if ( ! /usr/local/MacGPG2/bin/gpg2 --gpgconf-test ) then
         echo "Fixing gpg.conf"
         mv $HOME/.gnupg/gpg.conf $HOME/.gnupg/gpg.conf.moved-by-gpgtools-installer
         cp /usr/local/MacGPG2/share/gnupg/gpg-conf.skel $HOME/.gnupg/gpg.conf
@@ -27,7 +27,7 @@ killall gpg-agent
 
 # Fix permissions (just to be sure)
   chown -R $USER:staff $HOME/.gnupg
-  chown -R $USER:staff $HOME/Library/GPGServices.service
+  chown -R $USER:staff $HOME/Library/Services/GPGServices.service
   chown -R $USER:staff $HOME/PreferencePanes/GPGTools.prefPane
   sudo chown root:wheel /Library/LaunchAgents/org.gpgtools.macgpg2.gpg-agent.plist
 
