@@ -7,12 +7,19 @@ if ( test -e "/Library/Mail/Bundles/GPGMail.mailbundle" ) then
 else
 	sudo -u $USER mkdir -p "$HOME/Library/Mail/Bundles"
 	# The installer has to make sure, that the "GPGMail.mailbundle" is installed in $tempdir
+    rm -fr "$HOME/Library/Mail/Bundles/GPGMail.mailbundle"
     chown -R $USER:Staff "$tempdir/GPGMail.mailbundle"
     sudo -u $USER cp -r "$tempdir/GPGMail.mailbundle" "$HOME/Library/Mail/Bundles/"
-    rm -fr "$tempdir/GPGMail.mailbundle"
 	# change the user and group to avoid problems when updating (so this skript needs to be run as root!)
 	chown -R $USER:Staff "$HOME/Library/Mail/Bundles/GPGMail.mailbundle"
 fi
+
+if [ ! "`diff -r $tempdir/GPGMail.mailbundle $HOME/Library/Mail/Bundles/GPGMail.mailbundle`" == "" ]; then
+    echo "Installation failed. GPGMail bundle was not installed or updated at $HOME/Library/Mail/Bundles/";
+    rm -fr "$tempdir/GPGMail.mailbundle"
+    exit 1;
+fi
+rm -fr "$tempdir/GPGMail.mailbundle"
 
 # cleanup tempdir "rm -d" deletes the temporary installation dir only if empty.
 # that is correct because if eg. /tmp is you install dir, there can be other stuff
@@ -36,7 +43,3 @@ fi
 defaults write "$domain" EnableBundles -bool YES
 defaults write "$domain" BundleCompatibilityVersion -int 3
 
-if [ ! -d "$HOME/Library/Mail/Bundles/GPGMail.mailbundle" ]; then
-    echo "Installation failed. There is no GPGMail bundle at $HOME/Library/Mail/Bundles/";
-    exit 1;
-fi
