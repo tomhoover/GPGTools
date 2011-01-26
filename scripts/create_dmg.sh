@@ -33,7 +33,7 @@ echo "Starting (takes at least 1 minute)...";
 echo "";
 echo "Compiling GPGTools_Preferences...";
 mkdir -p payload/gpgtoolspreferences
-(cd ../GPGMail_Preferences && git pull && make && cd - && rm -rf payload/gpgtoolspreferences/GPGTools.prefPane && cp -r ../GPGMail_Preferences/build/Release/GPGTools.prefPane payload/gpgtoolspreferences/) > build.log 2>&1
+(cd ../GPGTools_Preferences && git pull && make && cd - && rm -rf payload/gpgtoolspreferences/GPGTools.prefPane && cp -r ../GPGTools_Preferences/build/Release/GPGTools.prefPane payload/gpgtoolspreferences/) > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 echo "Compiling GPGServices...";
 mkdir -p payload/gpgservices
