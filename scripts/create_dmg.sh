@@ -47,6 +47,10 @@ echo "Compiling GPGMail...";
 mkdir -p payload/gpgmail
 (cd ../GPGMail/GPGMail && git pull && make && cd - && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
 if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
+#echo "Compiling MacGPG2...";
+#mkdir -p payload/gpg2
+#(cd ../MacGPG2 && git pull && make && cd - && rm -rf payload/gpg2/* && cp -r ../MacGPG2/build/* payload/gpg2/) > build.log 2>&1
+#if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
 #-------------------------------------------------------------------------
 
 
@@ -114,20 +118,19 @@ EOT1
 ./scripts/setfileicon images/trash.icns "$mountPoint/$rmName"
 ./scripts/setfileicon images/installer.icns "$mountPoint/$appName"
 chmod -Rf +r,go-w "$mountPoint"
-
-
-echo "Cleanup..."
 rm -r "$mountPoint/.Trashes" "$mountPoint/.fseventsd"
 hdiutil detach -quiet "$mountPoint"
 hdiutil convert "$dmgTempPath" -quiet -format UDZO -imagekey zlib-level=9 -o "$dmgPath"
+
+echo -e "DMG created\n\n"
+open "$dmgPath"
+
+echo "Cleanup..."
 rm -rf build/dmgTemp
 rm -f "$dmgTempPath"
 
 echo "Signing..."
 gpg2 -bu 76D78F0500D026C4 "$dmgPath"
 
-echo -e "DMG created\n\n"
-
-open "$dmgPath"
 
 popd > /dev/null
