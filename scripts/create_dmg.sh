@@ -11,7 +11,7 @@ pushd "$(dirname "$0")/.." > /dev/null
 #config ------------------------------------------------------------------
 releaseDir="build"
 appName="GPGTools.mpkg"
-rmName="Uninstall_GPGTools.app"
+rmName="Uninstall.app"
 appPath="$releaseDir/$appName"
 dmgName="GPGTools-$(date "+%Y%m%d").dmg"
 dmgPath="build/$dmgName"
