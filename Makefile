@@ -1,6 +1,6 @@
-all: create
+all: dmg
 
-create:
+dmg:
 	@./scripts/create_dmg.sh
 
 clean:
