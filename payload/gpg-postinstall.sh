@@ -24,6 +24,10 @@ killall gpg-agent
         mv $HOME/.gnupg/gpg.conf $HOME/.gnupg/gpg.conf.moved-by-gpgtools-installer
         cp /usr/local/MacGPG2/share/gnupg/gpg-conf.skel $HOME/.gnupg/gpg.conf
     fi
+# Add our comment if it doesn't exit
+    if [ "" == "`grep 'comment GPGTools' $HOME/.gnupg/gpg.conf`" ]; then
+        echo "comment GPGTools - http://gpgtools.org" >> $HOME/.gnupg/gpg.conf;
+    fi
 
 # Fix permissions (just to be sure)
   chown -R $USER:staff $HOME/.gnupg
