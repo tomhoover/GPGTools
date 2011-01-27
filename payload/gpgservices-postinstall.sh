@@ -1,13 +1,14 @@
 #!/bin/sh
 
-mkdir -p $HOME/Library/Services/
-mv /Users/Shared/GPGServices.service $HOME/Library/Services/
+rm -rf $HOME/Library/Services/GPGServices.service
+rm -rf /Library/Services/GPGServices.service
 
-mkdir -p $HOME/Library/PreferencePanes/
-mv /Users/Shared/GPGTools.prefPane $HOME/Library/PreferencePanes/
+mkdir -p /Library/Services/
+#chown -R $USER $HOME/Library/Services/
+mv /private/tmp/GPGServices.service /Library/Services/
+#chown -R $USER $HOME/Library/Services/
 
 ./ServicesRestart
-sleep 3
 sudo ./ServicesRestart
 
 exit 0
