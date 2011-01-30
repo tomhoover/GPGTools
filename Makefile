@@ -1,7 +1,8 @@
 all: dmg
 
 dmg:
-	@./scripts/create_dmg.sh
+	@./scripts/compile.sh
+	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh
 
 clean:
 	rm -rf build

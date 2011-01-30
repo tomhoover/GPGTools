@@ -1,3 +1,0 @@
-TODO:
-
-Pinentry is compilled as universal (including ppc) but libpth is only compilled as Intel!
