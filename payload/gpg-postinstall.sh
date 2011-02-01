@@ -9,6 +9,7 @@ killall gpg-agent
   [ -h "$HOME/.gnupg/S.gpg-agent.ssh" ] && rm -f "$HOME/.gnupg/S.gpg-agent.ssh"
 
 # Add some links (force the symlink to be sure)
+  mkdir -p /usr/local/bin/
   rm -f /usr/local/bin/gpg2; ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg2
   [ ! -e /usr/local/bin/gpg ] && ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg
 
@@ -359,6 +360,7 @@ rm -f /Library/LaunchAgents/com.sourceforge.macgpg2.gpg-agent.plist &> /dev/null
 
 # Add symlinks in $OldMacGPG2/bin for any hardwired programs as necessary
 
+mkdir -p $OldMacGPG2/bin/
 [ -f $OldMacGPG2/bin/gpg ]  || ln -s $MacGPG2/bin/gpg2 $OldMacGPG2/bin/gpg
 [ -f $OldMacGPG2/bin/gpg2 ] || ln -s $MacGPG2/bin/gpg2 $OldMacGPG2/bin/gpg2
 
