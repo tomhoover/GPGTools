@@ -1,5 +1,4 @@
-This is /home/wk/w/libksba/doc/ksba.info, produced by makeinfo version
-4.13 from /home/wk/w/libksba/doc/ksba.texi.
+This is ksba.info, produced by makeinfo version 4.8 from ksba.texi.
 
 INFO-DIR-SECTION GNU libraries
 START-INFO-DIR-ENTRY
@@ -887,14 +886,14 @@ no other clean way to access them.
      whether the first character is letter or a digit.  RFC 2822
      conformant email addresses are returned enclosed in angle
      brackets, the opening angle bracket should be used to detect this.
-     Other formats are returned as an S-Expression in canonical format,
-     so an opening parenthesis may be used to detect this encoding, in
-     this case the name may include binary null characters, so strlen
-     might return a length shorter than actually used, the real length
-     is implicitly given by the structure of the S-Exp, an extra null
-     is appended for safety reasons.  One common format return is a
-     Universal Resource Identifier which has the S-expression: `(uri
-     <urivalue>)'.
+     Other formats are returned as an S-Expression in canonical
+     format, so an opening parenthesis may be used to detect this
+     encoding, in this case the name may include binary null
+     characters, so strlen might return a length shorter than actually
+     used, the real length is implicitly given by the structure of the
+     S-Exp, an extra null is appended for safety reasons.  One common
+     format return is a Universal Resource Identifier which has the
+     S-expression: `(uri <urivalue>)'.
 
      The returned string has the same lifetime as NAME.
 
@@ -984,8 +983,8 @@ described in the documentation of those functions.
 
    All error codes are defined by the library `libgpg-error'.  See
 there for ways to check the error values and print descriptive strings.
-Please be aware that you can't check directly against an error code but
-have to do it like this:
+Please be aware that you can't check directly against an error code
+but have to do it like this:
 
        err = ksba_foo ();
        if (gpg_err_code (err) == GPG_ERR_EOF)
@@ -1848,33 +1847,33 @@ Function and Data Index
 
 
 Tag Table:
-Node: Top790
-Node: Introduction2823
-Node: Getting Started3101
-Node: Features3967
-Node: Overview5058
-Node: Preparation5307
-Node: Header5790
-Node: Version Check6386
-Node: Building the source7477
-Node: Certificate Handling9321
-Node: Creating certificates10302
-Node: Retrieving attributes12758
-Node: Setting attributes26406
-Node: User data26671
-Node: CMS28592
-Node: CMS Basics29052
-Node: CMS Parser31114
-Node: CRLs35080
-Node: PKCS1035363
-Node: Utilities35630
-Node: Names36034
-Node: OIDs38343
-Node: DNs38547
-Node: Error Handling39682
-Node: Component Labels41036
-Node: Copying42526
-Node: Concept Index80157
-Node: Function and Data Index80305
+Node: Top743
+Node: Introduction2776
+Node: Getting Started3054
+Node: Features3920
+Node: Overview5011
+Node: Preparation5260
+Node: Header5743
+Node: Version Check6339
+Node: Building the source7430
+Node: Certificate Handling9274
+Node: Creating certificates10255
+Node: Retrieving attributes12711
+Node: Setting attributes26359
+Node: User data26624
+Node: CMS28545
+Node: CMS Basics29005
+Node: CMS Parser31067
+Node: CRLs35033
+Node: PKCS1035316
+Node: Utilities35583
+Node: Names35987
+Node: OIDs38296
+Node: DNs38500
+Node: Error Handling39635
+Node: Component Labels40989
+Node: Copying42479
+Node: Concept Index80110
+Node: Function and Data Index80258
 
 End Tag Table

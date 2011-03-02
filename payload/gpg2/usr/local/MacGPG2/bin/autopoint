@@ -173,7 +173,7 @@ Report bugs to <bug-gnu-gettext@gnu.org>."
 func_version ()
 {
   echo "$progname (GNU $package) $version"
-  echo "Uses a versions archive in dir format."
+  echo "Uses a versions archive in git format."
   echo "Copyright (C) 2002-2010 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
@@ -386,7 +386,7 @@ mkdir "$work_dir" || {
 #  git   |             484             |         git        |
 # -------+-----------------------------+--------------------+
 
-case "dir" in
+case "git" in
   dir)
     # The archive of different versions is very large, but using it does not
     # require special tools.

@@ -17,7 +17,7 @@ old_library=''
 inherited_linker_flags=' '
 
 # Libraries that this one depends upon.
-dependency_libs=' -R/usr/local/MacGPG2/lib /usr/local/MacGPG2/lib/libintl.la -L/usr/local/MacGPG2/lib -lc -lxml2 /usr/local/MacGPG2/lib/libiconv.la -lncurses'
+dependency_libs=' /usr/local/MacGPG2/lib/libintl.la -L/usr/local/MacGPG2/lib -lc -lxml2 /usr/local/MacGPG2/lib/libiconv.la -lncurses'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
