@@ -19,7 +19,7 @@ if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
     if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
     echo "Compiling GPGMail...";
     mkdir -p payload/gpgmail
-    (cd ../GPGMail && git pull && git submodule foreach git pull origin master && cd GPGMail && make && cd "$back" && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
+    (cd ../GPGMail && git pull && git submodule foreach git pull origin master && make && cd "$back" && rm -rf payload/gpgmail/GPGMail.mailbundle && cp -r ../GPGMail/build/Release/GPGMail.mailbundle payload/gpgmail/)  > build.log 2>&1
     if [ ! "$?" == "0" ]; then echo "ERROR. Look at build.log"; exit 1; fi
     echo "Compiling MacGPG2...";
     echo "tbd";
