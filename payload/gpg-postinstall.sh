@@ -31,7 +31,7 @@ killall gpg-agent
     fi
 # Add a keyserver if none exits
     if [ "" == "`grep '^[ 	]*keyserver ' $HOME/.gnupg/gpg.conf`" ]; then
-        echo "keyserver pool.sks-keyservers.net" >> $HOME/.gnupg/gpg.conf;
+        echo "keyserver x-hkp://pool.sks-keyservers.net" >> $HOME/.gnupg/gpg.conf;
     fi
 
 # Remove any gpg-agent pinentry program options
