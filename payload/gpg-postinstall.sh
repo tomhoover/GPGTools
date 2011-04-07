@@ -11,6 +11,7 @@ killall gpg-agent
 # Add some links (force the symlink to be sure)
   mkdir -p /usr/local/bin/
   rm -f /usr/local/bin/gpg2; ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg2
+  rm -f /usr/local/bin/gpg-agent; ln -s /usr/local/MacGPG2/bin/gpg-agent /usr/local/bin/gpg-agent
   [ ! -e /usr/local/bin/gpg ] && ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg
 
 # Create a new gpg.conf if none is existing from the skeleton file
