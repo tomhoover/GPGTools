@@ -16,6 +16,7 @@ killall gpg-agent
 # Add some links (force the symlink to be sure)
   mkdir -p /usr/local/bin/
   rm -f /usr/local/bin/gpg2; ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg2
+  rm -f /usr/local/bin/gpg-agent; ln -s /usr/local/MacGPG2/bin/gpg-agent /usr/local/bin/gpg-agent
   [ ! -e /usr/local/bin/gpg ] && ln -s /usr/local/MacGPG2/bin/gpg2 /usr/local/bin/gpg
 
 # Create a new gpg.conf if none is existing from the skeleton file
@@ -36,7 +37,7 @@ killall gpg-agent
     fi
 # Add a keyserver if none exits
     if [ "" == "`grep '^[ 	]*keyserver ' $HOME/.gnupg/gpg.conf`" ]; then
-        echo "keyserver pool.sks-keyservers.net" >> $HOME/.gnupg/gpg.conf;
+        echo "keyserver x-hkp://pool.sks-keyservers.net" >> $HOME/.gnupg/gpg.conf;
     fi
 
 # Remove any gpg-agent pinentry program options
