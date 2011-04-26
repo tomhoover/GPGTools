@@ -2,6 +2,11 @@
 
 killall gpg-agent
 
+# Issue #155 (GPGMail tracker)
+  chown -R $USER "$HOME/.gnupg"
+  chmod u+rwx "$HOME/.gnupg"
+  chmod -R u+rw "$HOME/.gnupg"
+
 # Clean up (also clean up bad GPGTools behaviour)
   osascript scripts/remove-gpg-agent-login-item.scpt
   rm -rf /Applications/start-gpg-agent.app
