@@ -1,6 +1,7 @@
-Thank you for installing GPGTools (version 2011.03.22).
+Thank you for installing GPGTools
+Version: 2011.03.22
 
-You can chose:
+In order to use OpenPGP on OS X you can chose to install / update to:
 * MacGPG 2.0.17-9 (incl. gpg-pinentry and gpg-agent)
 * GPGMail 1.3.3 (for OS X Mail.app)
 * GPG Keychain Access 0.8.6 (managing GPG keys)
@@ -8,6 +9,6 @@ You can chose:
 * GPGPreferences 0.6 (GPGTools preferences, gpgmail autofix only)
 * Enigmail 1.1.2 (for Mozilla Thunderbird)
 
-This will allow you to use OpenPGP on OS X.
+Have a look at http://gpgtools.org for further information.
 
-Note: please close Mail.app first and have a look at http://gpgtools.org for further information.
+Note: please close Mail.app first
