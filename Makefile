@@ -1,5 +1,9 @@
 all: dmg
 
+update:
+	@git submodule foreach git pull origin master
+	@git pull
+
 dmg:
 	@./scripts/compile.sh
 	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh
