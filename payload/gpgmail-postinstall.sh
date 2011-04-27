@@ -6,12 +6,14 @@ if ( test -e "/Library/Mail/Bundles/GPGMail.mailbundle" ) then
 	mv "$tempdir/GPGMail.mailbundle" "/Library/Mail/Bundles/"
 else
 	sudo -u $USER mkdir -p "$HOME/Library/Mail/Bundles"
+	# Fix for issue #169
+    chown $USER:Staff "$homedir/Library/Mail"
 	# The installer has to make sure, that the "GPGMail.mailbundle" is installed in $tempdir
     rm -fr "$HOME/Library/Mail/Bundles/GPGMail.mailbundle"
     chown -R $USER:Staff "$tempdir/GPGMail.mailbundle"
     sudo -u $USER cp -r "$tempdir/GPGMail.mailbundle" "$HOME/Library/Mail/Bundles/"
 	# change the user and group to avoid problems when updating (so this skript needs to be run as root!)
-	chown -R $USER:Staff "$HOME/Library/Mail/Bundles/GPGMail.mailbundle"
+	chown -R $USER:Staff "$HOME/Library/Mail/Bundles"
 fi
 
 if [ ! "`diff -r $tempdir/GPGMail.mailbundle $HOME/Library/Mail/Bundles/GPGMail.mailbundle`" == "" ]; then
