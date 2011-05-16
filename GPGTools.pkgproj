@@ -459,7 +459,7 @@
 				<key>OVERWRITE_PERMISSIONS</key>
 				<false/>
 				<key>VERSION</key>
-				<string>0.8.6</string>
+				<string>0.8.10</string>
 			</dict>
 			<key>UUID</key>
 			<string>E5494601-62BF-4382-A372-85179E4217FD</string>
@@ -978,7 +978,7 @@
 				<key>OVERWRITE_PERMISSIONS</key>
 				<false/>
 				<key>VERSION</key>
-				<string>2.0.17</string>
+				<string>2.0.17-9</string>
 			</dict>
 			<key>TYPE</key>
 			<integer>0</integer>
@@ -2526,7 +2526,7 @@
 				<key>OVERWRITE_PERMISSIONS</key>
 				<false/>
 				<key>VERSION</key>
-				<string>1.5</string>
+				<string>1.6</string>
 			</dict>
 			<key>TYPE</key>
 			<integer>0</integer>
@@ -3107,7 +3107,54 @@ and therefore needs your authentication!</string>
 								<key>PACKAGE_UUID</key>
 								<string>12B8B143-19A0-4A83-91E4-03CBD6AF6306</string>
 								<key>REQUIREMENTS</key>
-								<array/>
+								<array>
+									<dict>
+										<key>BEHAVIOR</key>
+										<integer>1</integer>
+										<key>DICTIONARY</key>
+										<dict>
+											<key>IC_REQUIREMENT_OS_DISK_TYPE</key>
+											<integer>0</integer>
+											<key>IC_REQUIREMENT_OS_DISTRIBUTION_TYPE</key>
+											<integer>0</integer>
+											<key>IC_REQUIREMENT_OS_MINIMUM_VERSION</key>
+											<integer>100500</integer>
+										</dict>
+										<key>IDENTIFIER</key>
+										<string>fr.whitebox.Packages.requirement.os</string>
+										<key>MESSAGE</key>
+										<array/>
+										<key>NAME</key>
+										<string>Operating System</string>
+										<key>STATE</key>
+										<true/>
+									</dict>
+									<dict>
+										<key>BEHAVIOR</key>
+										<integer>1</integer>
+										<key>DICTIONARY</key>
+										<dict>
+											<key>IC_REQUIREMENT_CPU_ARCHITECTURE_FAMILY</key>
+											<integer>2</integer>
+											<key>IC_REQUIREMENT_CPU_INTEL_ARCHITECTURE_TYPE</key>
+											<integer>0</integer>
+											<key>IC_REQUIREMENT_CPU_MINIMUM_CPU_CORES_COUNT</key>
+											<integer>1</integer>
+											<key>IC_REQUIREMENT_CPU_MINIMUM_FREQUENCY</key>
+											<integer>866666</integer>
+											<key>IC_REQUIREMENT_CPU_POWERPC_ARCHITECTURE_TYPE</key>
+											<integer>0</integer>
+										</dict>
+										<key>IDENTIFIER</key>
+										<string>fr.whitebox.Packages.requirement.cpu</string>
+										<key>MESSAGE</key>
+										<array/>
+										<key>NAME</key>
+										<string>Processor</string>
+										<key>STATE</key>
+										<true/>
+									</dict>
+								</array>
 								<key>TITLE</key>
 								<array/>
 								<key>TOOLTIP</key>
@@ -3187,9 +3234,9 @@ and therefore needs your authentication!</string>
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Tool for managing your keys easily. Requires GPGPinentry!
+										<string>Tool for managing your keys easily.
 installs to:
-/Applications/</string>
+/Applications</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
@@ -3236,7 +3283,16 @@ installs to:
 							</dict>
 							<dict>
 								<key>DESCRIPTION</key>
-								<array/>
+								<array>
+									<dict>
+										<key>LANGUAGE</key>
+										<string>English</string>
+										<key>VALUE</key>
+										<string>A plugin for the global OS X Services menu, which adds the ability to almost any application to use OpenPGP functionalities.
+installs to:
+/Library/Services</string>
+									</dict>
+								</array>
 								<key>OPTIONS</key>
 								<dict>
 									<key>HIDDEN</key>
@@ -3246,6 +3302,8 @@ installs to:
 								</dict>
 								<key>PACKAGE_UUID</key>
 								<string>99813628-B4A7-4FB9-B1C1-5C4B16E5411C</string>
+								<key>REQUIREMENTS</key>
+								<array/>
 								<key>TITLE</key>
 								<array/>
 								<key>TOOLTIP</key>
@@ -3257,7 +3315,16 @@ installs to:
 							</dict>
 							<dict>
 								<key>DESCRIPTION</key>
-								<array/>
+								<array>
+									<dict>
+										<key>LANGUAGE</key>
+										<string>English</string>
+										<key>VALUE</key>
+										<string>Fix broken GPG and GPGMail installations.
+installs to:
+$HOME/Library/PreferencePanes/</string>
+									</dict>
+								</array>
 								<key>OPTIONS</key>
 								<dict>
 									<key>HIDDEN</key>
@@ -3267,6 +3334,8 @@ installs to:
 								</dict>
 								<key>PACKAGE_UUID</key>
 								<string>A3E97041-BF0B-442E-A122-EADD5AF558CD</string>
+								<key>REQUIREMENTS</key>
+								<array/>
 								<key>TITLE</key>
 								<array/>
 								<key>TOOLTIP</key>
@@ -3283,7 +3352,7 @@ installs to:
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>GPG Plugin for Mozilla Thunderbird. (visit http://enigmail.mozdev.org/ for further information)  Thunderbird needs to be installed and set up for this choice to be enabled!</string>
+										<string>GPG Plugin for Mozilla Thunderbird. (visit http://enigmail.mozdev.org/ for further information)  Thunderbird needs to be installed and set up(!) for this choice to be enabled!</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
