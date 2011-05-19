@@ -1,5 +1,5 @@
 Thank you for installing GPGTools
-Version: 2011.05.16
+Version: 20110517
 
 In order to use OpenPGP on OS X you can chose to install / update to:
 * MacGPG 2.0.17-9 (incl. gpg-pinentry and gpg-agent)
