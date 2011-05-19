@@ -373,5 +373,6 @@ rm -f /Library/LaunchAgents/com.sourceforge.macgpg2.gpg-agent.plist &> /dev/null
 mkdir -p $OldMacGPG2/bin/
 [ -f $OldMacGPG2/bin/gpg ]  || ln -s $MacGPG2/bin/gpg2 $OldMacGPG2/bin/gpg
 [ -f $OldMacGPG2/bin/gpg2 ] || ln -s $MacGPG2/bin/gpg2 $OldMacGPG2/bin/gpg2
+[ -f $OldMacGPG2/bin/gpg-agent ] || ln -s $MacGPG2/bin/gpg-agent $OldMacGPG2/bin/gpg-agent
 
 exit 0
