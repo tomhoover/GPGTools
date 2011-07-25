@@ -45,7 +45,7 @@ function testEnvironment {
 }
 
 function evalResult {
-    _e=$(date +%s); _t=$(( $_e - $_s ));
+    _e=$(date +%s); _t=$(( $_e - $3 ));
     if [ "$1" == "0" ]; then
         echo "$txtOK ($_t seconds)";
     else
