@@ -5,7 +5,8 @@
 # @prereq   OS X >= 10.5, Xcode >= 3, and SDK 10.5
 # @tested   OS X Lion 10.7.0
 # @see      http://gpgtools.org
-# @version  2011-07-24
+# @see      http://hints.macworld.com/article.php?story=20110318050811544
+# @version  2011-07-25
 ################################################################################
 
 
@@ -42,6 +43,11 @@ function testEnvironment {
     if [ "`which make`" != "" ]; then echo "$txtOK"; else echo "$txtFAIL"; fi
     echo -n "   * Xcode: ";
     if [ "`which xcodebuild`" != "" ]; then echo "$txtOK"; else echo "$txtFAIL"; fi
+    echo -n "   * GCC (ppc): ";
+    if [ -f "/Developer/usr/bin/powerpc-apple-darwin10-gcc-4.2.1" ]; then echo "$txtOK"; else echo "$txtFAIL"; fi
+    echo -n "   * LLVM (ppc): ";
+    if [ -f "/Developer/usr/llvm-gcc-4.2/bin/powerpc-apple-darwin10-llvm-gcc-4.2" ]; then echo "$txtOK"; else echo "$txtFAIL"; fi
+
 }
 
 function evalResult {
