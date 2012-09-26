@@ -40,9 +40,7 @@ buildProject () {
   projectPath="${projectName}/"
   projectRepo="${_baseURL}${_basePath}${projectName}"
   logFile="${projectName}.log"
-  error_1=0
-  error_2=0
-  
+
   # checkout
   echo " * Working on ${projectRepo}..."
   (
@@ -54,10 +52,12 @@ buildProject () {
   make update compile
   [ "$?" != "0" ] && exit 1
   
-  if [ "${projectInstaller}" == "1" ]; then   
+  if [ "${projectInstaller}" == "1" ]; then
     ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto buildbot
     [ "$?" != "0" ] && exit 2
   fi
+  
+  exit 0
   ) > "${logFile}" 2>&1
   
   if [ "$?" != "0" ]; then
@@ -80,9 +80,9 @@ mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
 buildProject "pinentry-mac" "master"
 buildProject "Libmacgpg" "master"
 buildProject "GPGPreferences" "master" "1"
-buildProject "GPGServices" "master"
-buildProject "GPGKeychainAccess" "master"
-buildProject "GPGMail" "master"
-buildProject "MacGPG2" "homebrew"
+buildProject "GPGServices" "master" "1"
+buildProject "GPGKeychainAccess" "master" "1"
+buildProject "GPGMail" "master" "1"
+buildProject "MacGPG2" "homebrew" "1"
 
 buildInstaller
