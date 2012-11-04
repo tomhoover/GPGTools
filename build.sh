@@ -32,27 +32,43 @@ checkEnvironment () {
 }
 
 
-buildProject () {
+checkout () {
   # config
   projectName="$1"
   projectBranch="$2"
   projectInstaller="$3"
+  projectDir="${projectName}_${projectBranch}";
   projectPath="${projectName}/"
   projectRepo="${_baseURL}${_basePath}${projectName}"
   logFile="${projectName}.log"
 
   # checkout
-  echo " * Working on ${projectRepo}..."
-  (
-  if [ ! -d "${projectName}" ]; then 
-    git clone --recursive --depth 1 -b "${projectBranch}" "${projectRepo}"  
+  if [ ! -d "${projectDir}" ]; then 
+    git clone --recursive --depth 1 -b "${projectBranch}" "${projectRepo}" "${projectDir}"
   fi
   
-  cd "${projectPath}"
-  make update compile
-  [ "$?" != "0" ] && exit 1
-  
+  cd "${projectDir}"
+  make update; [ "$?" != "0" ] && exit 1
+}
+
+buildProject () {
+  # config
+  projectName="$1"
+  projectBranch="$2"
+  projectInstaller="$3"
+  projectDir="${projectName}_${projectBranch}";
+  projectPath="${projectName}/"
+  projectRepo="${_baseURL}${_basePath}${projectName}"
+  logFile="${projectDir}.log"
+
+  echo " * Working on ${projectBranch} branch at ${projectRepo}..."
+  (
+
+  # checkout
+  checkout "$1" "$2" "$3"
+
   if [ "${projectInstaller}" == "1" ]; then
+     make compile; [ "$?" != "0" ] && exit 1
     ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto buildbot
     [ "$?" != "0" ] && exit 2
   fi
@@ -66,8 +82,11 @@ buildProject () {
 }
 
 buildInstaller () {
-  echo " * To be done: Working on GPGTools Installer..."
+  echo " * Working on GPGTools Installer..."
+  cd "build/GPGTools_Installer"
   echo "   * Copying files..."
+  # todo: read makefile config and use these variables to copy the files
+  mkdir -p "build/"
   echo "   * Creating installer..."
   echo "   * Creating final DMG..."
 }
@@ -77,12 +96,12 @@ buildInstaller () {
 ###############################################################################
 checkEnvironment
 mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
-buildProject "pinentry-mac" "master"
-buildProject "Libmacgpg" "master"
+buildProject "pinentry-mac" "master" "0"
+buildProject "Libmacgpg" "master" "0"
 buildProject "GPGPreferences" "master" "1"
 buildProject "GPGServices" "master" "1"
 buildProject "GPGKeychainAccess" "master" "1"
-buildProject "GPGMail" "master" "1"
-buildProject "MacGPG2" "homebrew" "1"
-
-buildInstaller
+buildProject "GPGMail" "experimental" "1"
+buildProject "GPGMail" "snow_leopard" "1"
+#buildProject "MacGPG2" "homebrew" "1"
+buildProject "GPGTools_Installer" "master" "0"
