@@ -81,14 +81,40 @@ buildProject () {
   fi
 }
 
+cpForInstaller () {
+  mkdir -p "build/payload/$2"; cp -R "../$1" "build/payload/$2"
+}
+
 buildInstaller () {
   echo " * Working on GPGTools Installer..."
   cd "build/GPGTools_Installer"
+  
   echo "   * Copying files..."
   # todo: read makefile config and use these variables to copy the files
-  mkdir -p "build/"
-  echo "   * Creating installer..."
-  echo "   * Creating final DMG..."
+  src="GPGKeychainAccess_master/build/Release/GPG\ Keychain\ Access.app"
+  dst="gka/"
+  cpForInstaller "${src}" "${dst}"
+  src="GPGMail_snow_leopard/build/Release/GPGMail.mailbundle"
+  dst="gpgmail106/private/tmp/GPGMail_Installation/"
+  cpForInstaller "${src}" "${dst}"
+  src="GPGPreferences_master/build/Release/GPGPreferences.prefPane"
+  dst="gpgtoolspreferences/"
+  cpForInstaller "${src}" "${dst}"
+  src="GPGMail_experimental/build/GPGMail.pkg"
+  dst="gpgmail107/GPGMail.mpkg/Contents/Packages/"
+  cpForInstaller "${src}" "${dst}"
+  src="GPGMail_experimental/build/GPGMail.pkg"
+  dst="gpgmail107/GPGMail.mpkg/Contents/Packages/"
+  cpForInstaller "${src}" "${dst}"
+  src="GPGServices_master/build/GPGServices.mpkg/Contents/Packages/GPGServices.pkg"
+  dst="gpgservices"
+  cpForInstaller "${src}" "${dst}"
+  src="MacGPG2_homebrew/build/MacGPG2.mpkg/Contents/Packages/MacGPG2.pkg"
+  dst="MacGPG2"
+  cpForInstaller "${src}" "${dst}"
+  
+  echo "   * Creating installer and final DMG..."
+  ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto nightly
 }
 
 ###############################################################################
@@ -96,12 +122,12 @@ buildInstaller () {
 ###############################################################################
 checkEnvironment
 mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
-buildProject "pinentry-mac" "master" "0"
-buildProject "Libmacgpg" "master" "0"
+#buildProject "pinentry-mac" "master" "0"
+#buildProject "Libmacgpg" "master" "0"
 buildProject "GPGPreferences" "master" "1"
 buildProject "GPGServices" "master" "1"
 buildProject "GPGKeychainAccess" "master" "1"
 buildProject "GPGMail" "experimental" "1"
 buildProject "GPGMail" "snow_leopard" "1"
-#buildProject "MacGPG2" "homebrew" "1"
+buildProject "MacGPG2" "homebrew" "1"
 buildProject "GPGTools_Installer" "master" "0"
