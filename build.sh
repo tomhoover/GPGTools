@@ -81,24 +81,35 @@ copyInstallerBinaries () {
   src="GPGKeychainAccess_master/build/Release/GPG Keychain Access.app"
   dst="gka/"
   copyAndOverwrite "${src}" "${dst}"
+
   src="GPGMail_snow_leopard/build/Release/GPGMail.mailbundle"
   dst="gpgmail106/private/tmp/GPGMail_Installation/"
   copyAndOverwrite "${src}" "${dst}"
+
+  src="GPGMail_master/build/GPGMail.mpkg"
+  dst="gpgmail107/"
+  copyAndOverwrite "${src}" "${dst}"
+
+  src="GPGMail_experimental/build/GPGMail.mpkg"
+  dst="gpgmail108/"
+  copyAndOverwrite "${src}" "${dst}"
+
   src="GPGPreferences_master/build/Release/GPGPreferences.prefPane"
   dst="gpgtoolspreferences/"
   copyAndOverwrite "${src}" "${dst}"
-  src="GPGMail_experimental/build/GPGMail.mpkg"
-  dst="gpgmail107/"
-  copyAndOverwrite "${src}" "${dst}"
+
   src="GPGServices_master/build/GPGServices.mpkg/Contents/Packages/GPGServices.pkg"
   dst="gpgservices"
   copyAndOverwrite "${src}" "${dst}"
+
   src="MacGPG2_homebrew/build/MacGPG2.mpkg/Contents/Packages/MacGPG2.pkg"
   dst="MacGPG2"
   copyAndOverwrite "${src}" "${dst}"
 }
 
 buildInstaller () {
+  logFile="installer.log"
+  
   echo " * Working on GPGTools Installer..."
   cd "GPGTools_Installer_master"
   
@@ -106,7 +117,8 @@ buildInstaller () {
   copyInstallerBinaries
 
   echo "   * Creating final DMG..."
-  ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto buildbot
+  ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto buildbot \
+  > "${logFile}" 2>&1
 }
 
 ###############################################################################
@@ -119,6 +131,7 @@ mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
 buildProject "GPGPreferences" "master" "1"
 buildProject "GPGServices" "master" "1"
 buildProject "GPGKeychainAccess" "master" "1"
+buildProject "GPGMail" "master" "1"
 buildProject "GPGMail" "experimental" "1"
 buildProject "GPGMail" "snow_leopard" "1"
 buildProject "MacGPG2" "homebrew" "1"
