@@ -49,8 +49,7 @@ checkoutProject () {
 }
 
 createDMG () {
-    make compile; [ "$?" != "0" ] && exit 1
-    ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto buildbot; [ "$?" != "0" ] && exit 2
+    make dmg-auto
 }
 
 buildProject () {
