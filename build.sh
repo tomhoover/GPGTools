@@ -20,7 +20,6 @@ _baseFolder="build/"
 [[ $_hasWriteAccess = 1 ]] && _baseURL="$_writeURL" || _baseURL="$_readURL"
 
 
-
 ###############################################################################
 # functions
 ###############################################################################
@@ -31,25 +30,8 @@ checkEnvironment () {
   fi
 }
 
-
-checkoutProject () {
-  # config
-  projectName="$1"
-  projectBranch="$2"
-  projectDir="${projectName}_${projectBranch}";
-  projectRepo="${_baseURL}${_basePath}${projectName}"
-
-  # checkout
-  if [ ! -d "${projectDir}" ]; then 
-    git clone --recursive --depth 1 -b "${projectBranch}" "${projectRepo}" "${projectDir}"
-  fi
-  
-  cd "${projectDir}"
-  make update; [ "$?" != "0" ] && exit 1
-}
-
-createDMG () {
-    make dmg
+createWorkingDirectory () {
+  mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
 }
 
 buildProject () {
@@ -71,8 +53,38 @@ buildProject () {
   [ "$?" != "0" ] && echo "ERROR! See ${logFile}." && exit 2
 }
 
-copyAndOverwrite () {
-  rm -rf "build/payload/$2"; mkdir -p "build/payload/$2"; cp -R "../$1" "build/payload/$2"
+checkoutProject () {
+  # config
+  projectName="$1"
+  projectBranch="$2"
+  projectDir="${projectName}_${projectBranch}";
+  projectRepo="${_baseURL}${_basePath}${projectName}"
+
+  # checkout
+  if [ ! -d "${projectDir}" ]; then 
+    git clone --recursive --depth 1 -b "${projectBranch}" "${projectRepo}" "${projectDir}"
+  fi
+  
+  cd "${projectDir}"
+  make update; [ "$?" != "0" ] && exit 1
+}
+
+createDMG () {
+    make dmg
+}
+
+buildInstaller () {
+  logFile="installer.log"
+  
+  echo " * Working on GPGTools Installer..."
+  cd "GPGTools_Installer_master"
+  
+  echo "   * Copying files..."
+  copyInstallerBinaries
+
+  echo "   * Creating final DMG..."
+  createDMG \
+  > "${logFile}" 2>&1
 }
 
 copyInstallerBinaries () {
@@ -106,27 +118,26 @@ copyInstallerBinaries () {
   copyAndOverwrite "${src}" "${dst}"
 }
 
-buildInstaller () {
-  logFile="installer.log"
-  
-  echo " * Working on GPGTools Installer..."
-  cd "GPGTools_Installer_master"
-  
-  echo "   * Copying files..."
-  copyInstallerBinaries
-
-  echo "   * Creating final DMG..."
-  createDMG \
-  > "${logFile}" 2>&1
+copyAndOverwrite () {
+  rm -rf "build/payload/$2"; mkdir -p "build/payload/$2"; cp -R "../$1" "build/payload/$2"
 }
 
 ###############################################################################
 # main
 ###############################################################################
 checkEnvironment
-mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
-#buildProject "pinentry-mac" "master" "0"
-#buildProject "Libmacgpg" "master" "0"
+createWorkingDirectory
+#buildProject "pinentry-mac" "dev" "0"
+#buildProject "Libmacgpg" "dev" "0"
+#buildProject "GPGPreferences" "dev" "1"
+#buildProject "GPGServices" "dev" "1"
+#buildProject "GPGKeychainAccess" "dev" "1"
+#buildProject "GPGMail" "master" "1"
+#buildProject "GPGMail" "dev" "1"
+#buildProject "GPGMail_SL" "dev" "1"
+#buildProject "MacGPG2" "dev" "1"
+#buildProject "GPGTools_Installer" "dev" "0"
+
 buildProject "GPGPreferences" "master" "1"
 buildProject "GPGServices" "master" "1"
 buildProject "GPGKeychainAccess" "master" "1"
@@ -135,4 +146,5 @@ buildProject "GPGMail" "experimental" "1"
 buildProject "GPGMail" "snow_leopard" "1"
 buildProject "MacGPG2" "homebrew" "1"
 buildProject "GPGTools_Installer" "master" "0"
+
 buildInstaller
