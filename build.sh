@@ -49,7 +49,7 @@ checkoutProject () {
 }
 
 createDMG () {
-    make dmg-auto
+    make dmg
 }
 
 buildProject () {
@@ -63,7 +63,7 @@ buildProject () {
 
   echo " * Working on ${projectBranch} branch under ${projectRepo}..."
   (
-  checkoutProject "$1" "$2" "$3"
+  checkoutProject "${projectName}" "${projectBranch}"
   [ "${createDMG}" == "1" ] && createDMG
   exit 0
   ) > "${logFile}" 2>&1
@@ -116,7 +116,7 @@ buildInstaller () {
   copyInstallerBinaries
 
   echo "   * Creating final DMG..."
-  ./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto buildbot \
+  createDMG \
   > "${logFile}" 2>&1
 }
 
