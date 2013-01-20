@@ -113,7 +113,7 @@ copyInstallerBinaries () {
   dst="gpgservices"
   copyAndOverwrite "${src}" "${dst}"
 
-  src="MacGPG2_homebrew/build/MacGPG2.mpkg/Contents/Packages/MacGPG2.pkg"
+  src="MacGPG2_dev/build/MacGPG2.pkg"
   dst="MacGPG2"
   copyAndOverwrite "${src}" "${dst}"
 }
@@ -144,7 +144,7 @@ buildProject "GPGKeychainAccess" "master" "1"
 buildProject "GPGMail" "master" "1"
 buildProject "GPGMail" "experimental" "1"
 buildProject "GPGMail" "snow_leopard" "1"
-buildProject "MacGPG2" "homebrew" "1"
+buildProject "MacGPG2" "dev" "1"
 buildProject "GPGTools_Installer" "master" "0"
 
 buildInstaller
