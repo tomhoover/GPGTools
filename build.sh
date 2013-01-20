@@ -113,7 +113,7 @@ copyInstallerBinaries () {
   dst="gpgservices"
   copyAndOverwrite "${src}" "${dst}"
 
-  src="MacGPG2_dev/build/MacGPG2.pkg"
+  src="MacGPG2_dev/build/MacGPG2_Core.pkg"
   dst="MacGPG2"
   copyAndOverwrite "${src}" "${dst}"
 }
