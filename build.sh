@@ -66,7 +66,7 @@ checkoutProject () {
   fi
   
   cd "${projectDir}"
-  make update; [ "$?" != "0" ] && exit 1
+  git pull; [ "$?" != "0" ] && exit 1
 }
 
 createDMG () {
