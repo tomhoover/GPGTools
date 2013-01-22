@@ -16,9 +16,14 @@ _hasWriteAccess=0 # 0 or 1
 _readURL="https://github.com/"
 _writeURL="git@github.com:"
 _basePath="GPGTools/"
-_baseFolder="build/"
+_baseFolder="`pwd`/build/"
+_corePackageFolder="${_baseFolder}/core-packages"
 [[ $_hasWriteAccess = 1 ]] && _baseURL="$_writeURL" || _baseURL="$_readURL"
 
+VERBOSE=0
+if [ "$1" == "verbose" ]; then
+	VERBOSE=1
+fi
 
 ###############################################################################
 # functions
@@ -34,23 +39,53 @@ createWorkingDirectory () {
   mkdir -p "${_baseFolder}"; cd "${_baseFolder}"
 }
 
+_buildProject () {
+	projectName="$1"
+	projectBranch="$2"
+	createDMG="$3"
+	projectAltName="$4"
+	
+	(
+	  checkoutProject "${projectName}" "${projectBranch}"
+	  compileAndMakePackage "${projectName}" "${projectBranch}" "${projectAltName}"
+	  [ "${createDMG}" == "1" ] && createDMG
+	  exit 0
+	)
+}
+
 buildProject () {
   # config
   projectName="$1"
   projectBranch="$2"
   createDMG="$3"
+  projectAltName="$4"
   projectDir="${projectName}_${projectBranch}";
   projectRepo="${_baseURL}${_basePath}${projectName}"
   logFile="${projectDir}.log"
 
   echo " * Working on ${projectBranch} branch under ${projectRepo}..."
-  (
-  checkoutProject "${projectName}" "${projectBranch}"
-  [ "${createDMG}" == "1" ] && createDMG
-  exit 0
-  ) > "${logFile}" 2>&1
-  
-  [ "$?" != "0" ] && echo "ERROR! See ${logFile}." && exit 2
+  if [ "$VERBOSE" != "1" ]; then
+ 	_buildProject "$projectName" "$projectBranch" "$createDMG" "$projectAltName" > "${logFile}" 2>&1
+  else
+	_buildProject "$projectName" "$projectBranch" "$createDMG" "$projectAltName"
+  fi
+
+  if [ "$?" != "0" ]; then
+		echo "ERROR! See ${logFile}."
+		tail -n 20 "${logFile}"
+		exit 2
+  fi
+}
+
+compileAndMakePackage() {
+	projectName="$1"
+	projectBranch="$2"
+	projectAltName=$(test -z "$3" && echo ${projectName} || echo "$3")
+	projectAltName="${projectAltName:-projectName}"
+	
+	make pkg
+	# Prepare for final installer
+	CORE_PKG_DIR=${_corePackageFolder} ALT_NAME=$projectAltName make pkg-prepare-for-installer
 }
 
 checkoutProject () {
@@ -70,7 +105,7 @@ checkoutProject () {
 }
 
 createDMG () {
-    make dmg
+    CORE_PKG_DIR=${_corePackageFolder} make dmg
 }
 
 buildInstaller () {
@@ -88,34 +123,7 @@ buildInstaller () {
 }
 
 copyInstallerBinaries () {
-  # todo: read makefile config and use these variables to copy the files
-  src="GPGKeychainAccess_master/build/Release/GPG Keychain Access.app"
-  dst="gka/"
-  copyAndOverwrite "${src}" "${dst}"
-
-  src="GPGMail_snow_leopard/build/Release/GPGMail.mailbundle"
-  dst="gpgmail106/private/tmp/GPGMail_Installation/"
-  copyAndOverwrite "${src}" "${dst}"
-
-  src="GPGMail_master/build/GPGMail.mpkg"
-  dst="gpgmail107/"
-  copyAndOverwrite "${src}" "${dst}"
-
-  src="GPGMail_experimental/build/GPGMail.mpkg"
-  dst="gpgmail108/"
-  copyAndOverwrite "${src}" "${dst}"
-
-  src="GPGPreferences_master/build/Release/GPGPreferences.prefPane"
-  dst="gpgtoolspreferences/"
-  copyAndOverwrite "${src}" "${dst}"
-
-  src="GPGServices_master/build/GPGServices.mpkg/Contents/Packages/GPGServices.pkg"
-  dst="gpgservices"
-  copyAndOverwrite "${src}" "${dst}"
-
-  src="MacGPG2_dev/build/MacGPG2_Core.pkg"
-  dst="MacGPG2"
-  copyAndOverwrite "${src}" "${dst}"
+ 	CORE_PKG_DIR=${_corePackageFolder} make pkg
 }
 
 copyAndOverwrite () {
@@ -138,12 +146,13 @@ createWorkingDirectory
 #buildProject "MacGPG2" "dev" "1"
 #buildProject "GPGTools_Installer" "dev" "0"
 
-buildProject "GPGPreferences" "master" "1"
-buildProject "GPGServices" "master" "1"
-buildProject "GPGKeychainAccess" "master" "1"
-buildProject "GPGMail" "master" "1"
-buildProject "GPGMail" "experimental" "1"
-buildProject "GPGMail" "snow_leopard" "1"
+buildProject "GPGPreferences" "dev" "1"
+buildProject "GPGServices" "dev" "1"
+buildProject "GPGKeychainAccess" "dev" "1"
+buildProject "GPGMail" "dev" "1" "GPGMail_10.7"
+buildProject "GPGMail" "experimental" "1" "GPGMail_10.7+"
+buildProject "GPGMail" "snow_leopard" "1" "GPGMail_10.6"
+buildProject "Libmacgpg" "dev" "1"
 buildProject "MacGPG2" "dev" "1"
 buildProject "GPGTools_Installer" "master" "0"
 
