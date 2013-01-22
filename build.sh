@@ -46,7 +46,12 @@ _buildProject () {
 	projectAltName="$4"
 	
 	(
-	  checkoutProject "${projectName}" "${projectBranch}"
+	  checkoutProject "${projectName}" "${projectBranch}" hasUpdates
+	  echo "updates: $hasUpdates"
+	  if [ "$hasUpdates" == "1" ]; then
+		# Remove the build folder so the project is compiled from scratch.
+		rm -rf "${_baseFolder}/${projectName}_${projectBranch}/build"
+	  fi
 	  compileAndMakePackage "${projectName}" "${projectBranch}" "${projectAltName}"
 	  [ "${createDMG}" == "1" ] && createDMG
 	  exit 0
@@ -92,6 +97,7 @@ checkoutProject () {
   # config
   projectName="$1"
   projectBranch="$2"
+  local __resultvar=$3
   projectDir="${projectName}_${projectBranch}";
   projectRepo="${_baseURL}${_basePath}${projectName}"
 
@@ -101,7 +107,11 @@ checkoutProject () {
   fi
   
   cd "${projectDir}"
+  # Check if there are updates in remote branch.
+  current=`git rev-parse HEAD`
   git pull; [ "$?" != "0" ] && exit 1
+  local diff="$(git diff $current..)"
+  eval $__resultvar="'$(test -z "$diff" && echo "0" || echo "1")'"
 }
 
 createDMG () {
