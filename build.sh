@@ -47,13 +47,14 @@ _buildProject () {
 	
 	(
 	  checkoutProject "${projectName}" "${projectBranch}" hasUpdates
-	  echo "updates: $hasUpdates"
 	  if [ "$hasUpdates" == "1" ]; then
 		# Remove the build folder so the project is compiled from scratch.
 		rm -rf "${_baseFolder}/${projectName}_${projectBranch}/build"
 	  fi
-	  compileAndMakePackage "${projectName}" "${projectBranch}" "${projectAltName}"
-	  [ "${createDMG}" == "1" ] && createDMG
+	  if [ "${createDMG}" == "1" ]; then
+		compileAndMakePackage "${projectName}" "${projectBranch}" "${projectAltName}"
+	  	createDMG
+	  fi
 	  exit 0
 	)
 }
