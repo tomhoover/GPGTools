@@ -3,9 +3,8 @@
 ###############################################################################
 # GPGTools complete build script.
 #
-# @author   Alex
+# @author   Alex, Lukas
 # @goal     Invoke this script and have a complete GPGTools.dmg at the end
-# @todo     To much to write down
 ###############################################################################
 
 
@@ -42,7 +41,7 @@ createWorkingDirectory () {
 _buildProject () {
 	projectName="$1"
 	projectBranch="$2"
-	createDMG="$3"
+	createPKG="$3"
 	projectAltName="$4"
 	
 	(
@@ -51,9 +50,8 @@ _buildProject () {
 		# Remove the build folder so the project is compiled from scratch.
 		rm -rf "${_baseFolder}/${projectName}_${projectBranch}/build"
 	  fi
-	  if [ "${createDMG}" == "1" ]; then
+	  if [ "${createPKG}" == "1" ]; then
 		compileAndMakePackage "${projectName}" "${projectBranch}" "${projectAltName}"
-	  	createDMG
 	  fi
 	  exit 0
 	)
@@ -63,7 +61,7 @@ buildProject () {
   # config
   projectName="$1"
   projectBranch="$2"
-  createDMG="$3"
+  createPKG="$3"
   projectAltName="$4"
   projectDir="${projectName}_${projectBranch}";
   projectRepo="${_baseURL}${_basePath}${projectName}"
@@ -71,9 +69,9 @@ buildProject () {
 
   echo " * Working on ${projectBranch} branch under ${projectRepo}..."
   if [ "$VERBOSE" != "1" ]; then
- 	_buildProject "$projectName" "$projectBranch" "$createDMG" "$projectAltName" > "${logFile}" 2>&1
+ 	_buildProject "$projectName" "$projectBranch" "$createPKG" "$projectAltName" > "${logFile}" 2>&1
   else
-	_buildProject "$projectName" "$projectBranch" "$createDMG" "$projectAltName"
+	_buildProject "$projectName" "$projectBranch" "$createPKG" "$projectAltName"
   fi
 
   if [ "$?" != "0" ]; then
@@ -89,7 +87,7 @@ compileAndMakePackage() {
 	projectAltName=$(test -z "$3" && echo ${projectName} || echo "$3")
 	projectAltName="${projectAltName:-projectName}"
 	
-	make pkg
+	make pkg-core
 	# Prepare for final installer
 	CORE_PKG_DIR=${_corePackageFolder} ALT_NAME=$projectAltName make pkg-prepare-for-installer
 }
@@ -115,30 +113,15 @@ checkoutProject () {
   eval $__resultvar="'$(test -z "$diff" && echo "0" || echo "1")'"
 }
 
-createDMG () {
-    CORE_PKG_DIR=${_corePackageFolder} make dmg
-}
-
 buildInstaller () {
   logFile="installer.log"
   
   echo " * Working on GPGTools Installer..."
   cd "GPGTools_Installer_master"
   
-  echo "   * Copying files..."
-  copyInstallerBinaries
-
   echo "   * Creating final DMG..."
-  createDMG \
+  CORE_PKG_DIR=${_corePackageFolder} make dmg \
   > "${logFile}" 2>&1
-}
-
-copyInstallerBinaries () {
- 	CORE_PKG_DIR=${_corePackageFolder} make pkg
-}
-
-copyAndOverwrite () {
-  rm -rf "build/payload/$2"; mkdir -p "build/payload/$2"; cp -R "../$1" "build/payload/$2"
 }
 
 ###############################################################################
@@ -153,11 +136,9 @@ createWorkingDirectory
 (buildProject "Libmacgpg" "dev" "1") &
 (buildProject "MacGPG2" "dev" "1") &
 (buildProject "GPGTools_Installer" "master" "0") &
-(
-buildProject "GPGMail" "snow_leopard" "1" "GPGMail_10.6" && \
-buildProject "GPGMail" "dev" "1" "GPGMail_10.7" && \
-buildProject "GPGMail" "experimental" "1" "GPGMail_10.7+"
-) &
+(buildProject "GPGMail" "snow_leopard" "1" "GPGMail_10.6") &
+(buildProject "GPGMail" "dev" "1" "GPGMail_10.7") &
+(buildProject "GPGMail" "experimental" "1" "GPGMail_10.7+") &
 
 wait
 
