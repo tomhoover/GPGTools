@@ -157,14 +157,18 @@ createWorkingDirectory
 #buildProject "MacGPG2" "dev" "1"
 #buildProject "GPGTools_Installer" "dev" "0"
 
-buildProject "GPGPreferences" "dev" "1"
-buildProject "GPGServices" "dev" "1"
-buildProject "GPGKeychainAccess" "dev" "1"
-buildProject "GPGMail" "dev" "1" "GPGMail_10.7"
-buildProject "GPGMail" "experimental" "1" "GPGMail_10.7+"
-buildProject "GPGMail" "snow_leopard" "1" "GPGMail_10.6"
-buildProject "Libmacgpg" "dev" "1"
-buildProject "MacGPG2" "dev" "1"
-buildProject "GPGTools_Installer" "master" "0"
+(buildProject "GPGPreferences" "dev" "1") &
+(buildProject "GPGServices" "dev" "1") &
+(buildProject "GPGKeychainAccess" "dev" "1") &
+(buildProject "GPGMail" "dev" "1" "GPGMail_10.7") &
+(buildProject "GPGMail" "experimental" "1" "GPGMail_10.7+") &
+(buildProject "GPGMail" "snow_leopard" "1" "GPGMail_10.6") &
+(buildProject "Libmacgpg" "dev" "1") &
+(buildProject "MacGPG2" "dev" "1") &
+(buildProject "GPGTools_Installer" "master" "0") &
+
+wait
+
+echo "All projects finished building. Creating GPGTools Installer."
 
 buildInstaller
