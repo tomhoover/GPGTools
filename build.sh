@@ -136,10 +136,6 @@ copyInstallerBinaries () {
  	CORE_PKG_DIR=${_corePackageFolder} make pkg
 }
 
-copyAndOverwrite () {
-  rm -rf "build/payload/$2"; mkdir -p "build/payload/$2"; cp -R "../$1" "build/payload/$2"
-}
-
 ###############################################################################
 # main
 ###############################################################################
