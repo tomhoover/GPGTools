@@ -42,18 +42,26 @@ createWorkingDirectory () {
 _buildProject () {
 	projectName="$1"
 	projectBranch="$2"
-	createDMG="$3"
+	createFlags="$3"
+	createDMG=$(echo "$createFlags" | grep "d" && "1" || "0")
+	createPKG=$(echo "$createFlags" | grep "p" && "1" || "0")
 	projectAltName="$4"
 	
 	(
 	  checkoutProject "${projectName}" "${projectBranch}" hasUpdates
-	  echo "updates: $hasUpdates"
 	  if [ "$hasUpdates" == "1" ]; then
 		# Remove the build folder so the project is compiled from scratch.
 		rm -rf "${_baseFolder}/${projectName}_${projectBranch}/build"
 	  fi
-	  compileAndMakePackage "${projectName}" "${projectBranch}" "${projectAltName}"
-	  [ "${createDMG}" == "1" ] && createDMG
+	  if [ -z "$createPKG" ] || [ -z "$createDMG" ]; then
+	  	compile
+	  fi
+	  if [ "$createPKG" == "1" ];
+		createPackage "${projectName}" "${projectBranch}" "${projectAltName}"
+	  fi
+	  if [ "$createDMG" == ""]; then
+		createDMG
+	  fi
 	  exit 0
 	)
 }
@@ -62,7 +70,8 @@ buildProject () {
   # config
   projectName="$1"
   projectBranch="$2"
-  createDMG="$3"
+  createFlags="$3"
+  
   projectAltName="$4"
   projectDir="${projectName}_${projectBranch}";
   projectRepo="${_baseURL}${_basePath}${projectName}"
@@ -70,9 +79,9 @@ buildProject () {
 
   echo " * Working on ${projectBranch} branch under ${projectRepo}..."
   if [ "$VERBOSE" != "1" ]; then
- 	_buildProject "$projectName" "$projectBranch" "$createDMG" "$projectAltName" > "${logFile}" 2>&1
+ 	_buildProject "$projectName" "$projectBranch" "$createFlags" "$projectAltName" > "${logFile}" 2>&1
   else
-	_buildProject "$projectName" "$projectBranch" "$createDMG" "$projectAltName"
+	_buildProject "$projectName" "$projectBranch" "$createFlags" "$projectAltName"
   fi
 
   if [ "$?" != "0" ]; then
@@ -82,13 +91,17 @@ buildProject () {
   fi
 }
 
-compileAndMakePackage() {
+compile() {
+	make
+}
+
+createPackage() {
 	projectName="$1"
 	projectBranch="$2"
 	projectAltName=$(test -z "$3" && echo ${projectName} || echo "$3")
 	projectAltName="${projectAltName:-projectName}"
 	
-	make pkg
+	make pkg-core
 	# Prepare for final installer
 	CORE_PKG_DIR=${_corePackageFolder} ALT_NAME=$projectAltName make pkg-prepare-for-installer
 }
@@ -121,18 +134,20 @@ createDMG () {
 buildInstaller () {
   logFile="installer.log"
   
+  buildProject "GPGTools_Installer" "dev"
+
   echo " * Working on GPGTools Installer..."
   cd "GPGTools_Installer_master"
   
   echo "   * Copying files..."
-  copyInstallerBinaries
+  createInstallerPackage
 
   echo "   * Creating final DMG..."
   createDMG \
   > "${logFile}" 2>&1
 }
 
-copyInstallerBinaries () {
+createInstallerPackage () {
  	CORE_PKG_DIR=${_corePackageFolder} make pkg
 }
 
@@ -144,14 +159,16 @@ createWorkingDirectory
 
 # Build project can be instructed to build a package (p), build
 # a dmg (d) or build both (pd) or none (don't set the 3rd argument).
-buildProject "GPGPreferences" "dev" "pd"
-buildProject "GPGServices" "dev" "pd"
-buildProject "GPGKeychainAccess" "dev" "pd"
-buildProject "GPGMail" "dev" "pd" "GPGMail_10.7"
-buildProject "GPGMail" "experimental" "pd" "GPGMail_10.7+"
-buildProject "GPGMail" "snow_leopard" "pd" "GPGMail_10.6"
-buildProject "Libmacgpg" "dev" "p"
-buildProject "MacGPG2" "dev" "pd"
-buildProject "GPGTools_Installer" "dev"
+# Build all tools except GPGMail in parallel.
+(buildProject "GPGPreferences" "dev" "p") &
+(buildProject "GPGServices" "dev" "p") &
+(buildProject "GPGKeychainAccess" "dev" "p") &
+(buildProject "Libmacgpg" "dev" "p") &
+(
+	buildProject "GPGMail" "dev" "p" "GPGMail_10.7" && \
+ 	buildProject "GPGMail" "experimental" "p" "GPGMail_10.7+" && \
+ 	buildProject "GPGMail" "snow_leopard" "p" "GPGMail_10.6"
+) &
+(buildProject "MacGPG2" "dev" "pd") &
 
 buildInstaller
