@@ -3,9 +3,8 @@
 ###############################################################################
 # GPGTools complete build script.
 #
-# @author   Alex
+# @author   Alex, Lukas
 # @goal     Invoke this script and have a complete GPGTools.dmg at the end
-# @todo     To much to write down
 ###############################################################################
 
 
@@ -43,8 +42,8 @@ _buildProject () {
 	projectName="$1"
 	projectBranch="$2"
 	createFlags="$3"
-	createDMG=$(echo "$createFlags" | grep "d" && "1" || "0")
-	createPKG=$(echo "$createFlags" | grep "p" && "1" || "0")
+	createDMG=$(echo "$createFlags" | grep "d" &>/dev/null && echo "1" || echo "0")
+	createPKG=$(echo "$createFlags" | grep "p" &>/dev/null && echo "1" || echo "0")
 	projectAltName="$4"
 	
 	(
@@ -56,10 +55,10 @@ _buildProject () {
 	  if [ -z "$createPKG" ] || [ -z "$createDMG" ]; then
 	  	compile
 	  fi
-	  if [ "$createPKG" == "1" ];
+	  if [ "$createPKG" == "1" ]; then
 		createPackage "${projectName}" "${projectBranch}" "${projectAltName}"
 	  fi
-	  if [ "$createDMG" == ""]; then
+	  if [ "$createDMG" == "1" ]; then
 		createDMG
 	  fi
 	  exit 0
@@ -106,6 +105,10 @@ createPackage() {
 	CORE_PKG_DIR=${_corePackageFolder} ALT_NAME=$projectAltName make pkg-prepare-for-installer
 }
 
+createDMG () {
+    CORE_PKG_DIR=${_corePackageFolder} make dmg
+}
+
 checkoutProject () {
   # config
   projectName="$1"
@@ -127,24 +130,19 @@ checkoutProject () {
   eval $__resultvar="'$(test -z "$diff" && echo "0" || echo "1")'"
 }
 
-createDMG () {
-    CORE_PKG_DIR=${_corePackageFolder} make dmg
-}
-
 buildInstaller () {
   logFile="installer.log"
   
   buildProject "GPGTools_Installer" "dev"
 
   echo " * Working on GPGTools Installer..."
-  cd "GPGTools_Installer_master"
+  cd "GPGTools_Installer_dev"
   
-  echo "   * Copying files..."
+  echo "   * Creating installer package..."
   createInstallerPackage
 
   echo "   * Creating final DMG..."
-  createDMG \
-  > "${logFile}" 2>&1
+  createDMG > "${logFile}" 2>&1
 }
 
 createInstallerPackage () {
@@ -169,6 +167,10 @@ createWorkingDirectory
  	buildProject "GPGMail" "experimental" "p" "GPGMail_10.7+" && \
  	buildProject "GPGMail" "snow_leopard" "p" "GPGMail_10.6"
 ) &
-(buildProject "MacGPG2" "dev" "pd") &
+(buildProject "MacGPG2" "dev" "p") &
+
+wait
+
+echo "All projects finished building. Creating GPGTools Installer."
 
 buildInstaller
