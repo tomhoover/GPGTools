@@ -141,25 +141,17 @@ copyInstallerBinaries () {
 ###############################################################################
 checkEnvironment
 createWorkingDirectory
-#buildProject "pinentry-mac" "dev" "0"
-#buildProject "Libmacgpg" "dev" "0"
-#buildProject "GPGPreferences" "dev" "1"
-#buildProject "GPGServices" "dev" "1"
-#buildProject "GPGKeychainAccess" "dev" "1"
-#buildProject "GPGMail" "master" "1"
-#buildProject "GPGMail" "dev" "1"
-#buildProject "GPGMail_SL" "dev" "1"
-#buildProject "MacGPG2" "dev" "1"
-#buildProject "GPGTools_Installer" "dev" "0"
 
-buildProject "GPGPreferences" "dev" "1"
-buildProject "GPGServices" "dev" "1"
-buildProject "GPGKeychainAccess" "dev" "1"
-buildProject "GPGMail" "dev" "1" "GPGMail_10.7"
-buildProject "GPGMail" "experimental" "1" "GPGMail_10.7+"
-buildProject "GPGMail" "snow_leopard" "1" "GPGMail_10.6"
-buildProject "Libmacgpg" "dev" "1"
-buildProject "MacGPG2" "dev" "1"
-buildProject "GPGTools_Installer" "master" "0"
+# Build project can be instructed to build a package (p), build
+# a dmg (d) or build both (pd) or none (don't set the 3rd argument).
+buildProject "GPGPreferences" "dev" "pd"
+buildProject "GPGServices" "dev" "pd"
+buildProject "GPGKeychainAccess" "dev" "pd"
+buildProject "GPGMail" "dev" "pd" "GPGMail_10.7"
+buildProject "GPGMail" "experimental" "pd" "GPGMail_10.7+"
+buildProject "GPGMail" "snow_leopard" "pd" "GPGMail_10.6"
+buildProject "Libmacgpg" "dev" "p"
+buildProject "MacGPG2" "dev" "pd"
+buildProject "GPGTools_Installer" "dev"
 
 buildInstaller
