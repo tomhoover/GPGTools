@@ -163,8 +163,7 @@ createWorkingDirectory
 (buildProject "GPGKeychainAccess" "dev" "p") &
 (buildProject "Libmacgpg" "dev" "p") &
 (
-	buildProject "GPGMail" "dev" "p" "GPGMail_10.7" && \
- 	buildProject "GPGMail" "experimental" "p" "GPGMail_10.7+" && \
+	buildProject "GPGMail" "dev" "p" "GPGMail_LML" && \
  	buildProject "GPGMail" "snow_leopard" "p" "GPGMail_10.6"
 ) &
 (buildProject "MacGPG2" "dev" "p") &
