@@ -6,6 +6,6 @@ https://github.com/GPGTools/
 For further details please visit
 http://gpgtools.org
 
-To create your own installers
+To create your own installers run 
 
-    bash -c "$(curl -fsSkL raw.github.com/GPGTools/GPGTools/master/build.sh)"
+	./build.sh
